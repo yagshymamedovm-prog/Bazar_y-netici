@@ -28,13 +28,14 @@
       justify-content:center;font-size:24px;font-weight:800;margin-bottom:14px;box-shadow:0 10px 24px rgba(16,185,129,.35)}
     .login-card h1{font-size:22px;font-weight:800;letter-spacing:-.5px}
     .login-card p{font-size:12.5px;color:var(--sub);margin-top:5px}
-    .field{margin-top:14px}
+    .field{margin-top:12px}
     .field label{display:block;font-size:12px;font-weight:700;color:#cbd5e1;margin-bottom:6px}
     .field input,.field select,.field textarea{width:100%;background:rgba(11,17,32,.7);border:1.5px solid var(--border);
-      border-radius:13px;padding:12px 13px;font-size:14px;font-weight:600;color:#fff;outline:none;transition:.15s}
-    .field input:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(16,185,129,.15)}
-    .btn-primary{width:100%;height:48px;margin-top:18px;border:none;border-radius:14px;background:var(--grad);
-      color:#fff;font-size:14.5px;font-weight:800;cursor:pointer;box-shadow:0 10px 24px rgba(16,185,129,.3);transition:.15s}
+      border-radius:13px;padding:11px 13px;font-size:13.5px;font-weight:600;color:#fff;outline:none;transition:.15s}
+    .field textarea{resize:vertical;min-height:66px}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(16,185,129,.15)}
+    .btn-primary{width:100%;height:46px;margin-top:16px;border:none;border-radius:14px;background:var(--grad);
+      color:#fff;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 10px 24px rgba(16,185,129,.3);transition:.15s}
     .btn-primary:active{transform:scale(.98)}
     .err-box{display:none;margin-top:12px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.4);
       color:#fca5a5;padding:10px 12px;border-radius:12px;font-size:12px;font-weight:700}
@@ -42,7 +43,7 @@
 
     .demo-box{margin-top:18px;border-top:1px solid var(--border);padding-top:14px}
     .demo-title{font-size:11.5px;font-weight:700;color:var(--sub);margin-bottom:8px}
-    .demo-list{display:grid;grid-template-columns:1fr 1fr;gap:7px;max-height:160px;overflow:auto}
+    .demo-list{display:grid;grid-template-columns:1fr 1fr;gap:7px;max-height:155px;overflow:auto}
     .demo-acc{border:1px solid var(--border);background:rgba(255,255,255,.04);border-radius:11px;padding:8px;
       text-align:left;cursor:pointer;transition:.15s}
     .demo-acc:hover{border-color:var(--accent);background:rgba(16,185,129,.1)}
@@ -50,11 +51,13 @@
     .demo-acc span{font-size:10px;color:var(--sub);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
     /* ===== DASHBOARD ===== */
-    .dash-shell{max-width:960px;margin:0 auto;padding:16px 14px 90px}
+    .dash-shell{max-width:980px;margin:0 auto;padding:16px 14px 90px}
     .dash-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
       background:var(--card);border:1px solid var(--border);border-radius:22px;padding:14px 16px;margin-bottom:16px}
     .store-id-wrap{display:flex;align-items:center;gap:12px}
-    .store-avatar{width:48px;height:48px;border-radius:15px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:26px}
+    .store-avatar{width:52px;height:52px;border-radius:15px;background:var(--soft);display:flex;align-items:center;
+      justify-content:center;font-size:26px;overflow:hidden;flex-shrink:0;border:1px solid var(--border)}
+    .store-avatar img{width:100%;height:100%;object-fit:cover}
     .store-name{font-size:18px;font-weight:800}
     .store-email{font-size:11.5px;color:var(--sub)}
     .top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -62,8 +65,9 @@
       display:inline-flex;align-items:center;gap:6px}
     .status-toggle.open{background:rgba(16,185,129,.18);color:#34d399;border:1px solid rgba(16,185,129,.4)}
     .status-toggle.closed{background:rgba(239,68,68,.18);color:#f87171;border:1px solid rgba(239,68,68,.4)}
-    .logout-btn{border:1px solid var(--border);background:var(--soft);border-radius:12px;padding:8px 13px;
-      font-size:12px;font-weight:700;cursor:pointer}
+    .top-btn{border:1px solid var(--border);background:var(--soft);border-radius:12px;padding:8px 13px;
+      font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+    .top-btn:hover{border-color:var(--accent)}
 
     /* STATS */
     .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
@@ -74,7 +78,7 @@
     .stat-val.orange{color:#fb923c}
 
     /* TABS */
-    .tabs{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto}
+    .tabs{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:2px}
     .tab-btn{border:1px solid var(--border);background:var(--card);border-radius:13px;padding:10px 16px;
       font-size:13px;font-weight:800;color:var(--sub);cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:7px}
     .tab-btn.active{background:var(--grad);border-color:transparent;color:#fff}
@@ -109,27 +113,116 @@
     .act-btn.call{background:var(--soft);color:#fff;text-decoration:none;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 14px}
 
     /* PRODUCTS MANAGEMENT */
-    .prod-manage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
-    .pm-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px;display:flex;align-items:center;gap:12px}
-    .pm-emoji{width:46px;height:46px;border-radius:13px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+    .prod-manage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+    .pm-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px;display:flex;flex-direction:column;gap:10px}
+    .pm-top{display:flex;align-items:center;gap:12px}
+    .pm-thumb{width:56px;height:56px;border-radius:14px;background:var(--soft);display:flex;align-items:center;
+      justify-content:center;font-size:26px;flex-shrink:0;overflow:hidden;border:1px solid var(--border)}
+    .pm-thumb img{width:100%;height:100%;object-fit:cover}
     .pm-info{flex:1;min-width:0}
-    .pm-title{font-size:13.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .pm-title{font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .pm-sub{font-size:11.5px;color:var(--sub);margin-top:2px}
-    .stock-btn{border:none;border-radius:10px;padding:7px 10px;font-size:11px;font-weight:800;cursor:pointer}
-    .stock-btn.in{background:rgba(16,185,129,.18);color:#34d399}
-    .stock-btn.out{background:rgba(239,68,68,.18);color:#f87171}
+    .pm-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;padding-top:8px;border-top:1px solid var(--border)}
+    .pm-btn{height:34px;border:none;border-radius:10px;font-size:11.5px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px}
+    .pm-btn.in{background:rgba(16,185,129,.18);color:#34d399}
+    .pm-btn.out{background:rgba(245,158,11,.18);color:#fcd34d}
+    .pm-btn.edit{background:rgba(59,130,246,.18);color:#93c5fd}
+    .pm-btn.del{background:rgba(239,68,68,.16);color:#fca5a5}
 
-    .add-prod-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:16px;margin-bottom:14px}
+    /* FORMS & PHOTO UPLOAD */
+    .panel-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:16px;margin-bottom:14px}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+    .upload-box{display:flex;align-items:center;gap:12px;background:rgba(11,17,32,.55);border:1.5px dashed rgba(255,255,255,.16);
+      border-radius:14px;padding:10px 12px;margin-top:6px;flex-wrap:wrap}
+    .upload-preview{width:54px;height:54px;border-radius:12px;background:var(--soft);display:flex;align-items:center;
+      justify-content:center;font-size:24px;overflow:hidden;flex-shrink:0}
+    .upload-preview.wide{width:110px;height:54px}
+    .upload-preview img{width:100%;height:100%;object-fit:cover}
+    .upload-controls{flex:1;min-width:180px;display:flex;flex-direction:column;gap:6px}
+    .upload-btns{display:flex;gap:7px;flex-wrap:wrap}
+    .file-lbl{display:inline-flex;align-items:center;gap:5px;background:var(--grad);color:#fff;padding:7px 12px;
+      border-radius:10px;font-size:11.5px;font-weight:800;cursor:pointer}
+    .file-lbl input{display:none}
+    .clear-img-btn{border:1px solid rgba(239,68,68,.35);background:rgba(239,68,68,.12);color:#fca5a5;
+      padding:7px 10px;border-radius:10px;font-size:11.5px;font-weight:800;cursor:pointer}
+    .url-small{width:100%;background:rgba(11,17,32,.7);border:1px solid var(--border);border-radius:9px;
+      padding:7px 10px;font-size:11.5px;color:#fff;outline:none}
+
+    /* MODAL */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(5px);
+      display:none;align-items:center;justify-content:center;padding:16px;z-index:80}
+    .modal-overlay.open{display:flex}
+    .modal-card{width:100%;max-width:460px;max-height:90vh;overflow:auto;background:var(--card);
+      border:1px solid var(--border);border-radius:24px;padding:20px;box-shadow:0 24px 60px rgba(0,0,0,.55)}
+    .modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+    .modal-close{width:32px;height:32px;border-radius:50%;border:none;background:var(--soft);color:#fff;font-weight:800;cursor:pointer}
+
     .empty{background:var(--card);border:1px dashed var(--border);border-radius:20px;padding:38px 20px;text-align:center;color:var(--sub)}
     .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(10px);background:#10b981;color:#fff;
       padding:11px 18px;border-radius:999px;font-size:13px;font-weight:800;opacity:0;pointer-events:none;transition:.2s;z-index:99}
     .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-    @media(max-width:560px){.stats-grid{grid-template-columns:1fr 1fr}.stats-grid .stat-card:last-child{grid-column:span 2}.form-row{grid-template-columns:1fr}}
+    @media(max-width:580px){
+      .stats-grid{grid-template-columns:1fr 1fr}
+      .stats-grid .stat-card:last-child{grid-column:span 2}
+      .form-row,.form-row-3{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
   <div id="root"></div>
+
+  <!-- EDIT PRODUCT MODAL -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 style="font-size:17px;font-weight:800;">✏️ Harydy üýtget</h3>
+        <button type="button" class="modal-close" id="closeEditModal">✕</button>
+      </div>
+      <form id="editProdForm">
+        <input type="hidden" id="eId" />
+        <div class="field"><label>Harydyň ady *</label><input id="eTitle" required /></div>
+        <div class="form-row">
+          <div class="field"><label>Bahasy (m.) *</label><input id="ePrice" type="number" min="1" step="0.5" required /></div>
+          <div class="field"><label>Öňki bahasy (arzanladyş)</label><input id="eOldPrice" type="number" min="0" step="0.5" placeholder="Islege görä" /></div>
+        </div>
+        <div class="form-row-3">
+          <div class="field"><label>Ölçegi</label><input id="eUnit" placeholder="1 kg / 400 g" /></div>
+          <div class="field"><label>Bölümçe</label><input id="eCat" placeholder="Esasy" /></div>
+          <div class="field"><label>Emoji</label><input id="eEmoji" placeholder="📦" /></div>
+        </div>
+        <div class="field"><label>Düşündiriş</label><textarea id="eDesc" placeholder="Haryt barada gysgaça maglumat..."></textarea></div>
+        <div class="field">
+          <label>Harydyň suraty</label>
+          <div class="upload-box">
+            <div class="upload-preview" id="eImgPrev">📦</div>
+            <div class="upload-controls">
+              <div class="upload-btns">
+                <label class="file-lbl">📷 Surat ýükle<input type="file" accept="image/*" id="eImgFile" /></label>
+                <button type="button" class="clear-img-btn" id="eImgClear">Poz</button>
+              </div>
+              <input class="url-small" id="eImgUrl" placeholder="ýa-da surat salgysyny (URL) goýuň..." />
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary">Üýtgeşmeleri ýatda sakla ✓</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CUSTOMER SITE URL MODAL (if not configured yet) -->
+  <div class="modal-overlay" id="siteUrlModal">
+    <div class="modal-card" style="max-width:400px;">
+      <div class="modal-head">
+        <h3 style="font-size:17px;font-weight:800;">🌐 Müşderi saýtynyň salgysy</h3>
+        <button type="button" class="modal-close" id="closeSiteUrlModal">✕</button>
+      </div>
+      <p style="font-size:12.5px;color:var(--sub);">Müşderi saýtyňyz aýry adresde bolany üçin onuň doly salgysyny bir gezek ýazyň (mysal: https://sizin-saytynyz.github.io/market/):</p>
+      <div class="field"><label>Müşderi saýtynyň URL salgysy</label><input id="clientUrlInput" type="url" placeholder="https://..." /></div>
+      <button type="button" class="btn-primary" id="saveClientUrlBtn">Ýatda sakla we aç →</button>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -138,11 +231,12 @@
       'use strict';
 
       // ============================================================
-      // 0. SAZLAMALAR (index.html bilen birmeňzeş Supabase açarlary)
+      // 0. SAZLAMALAR
       // ============================================================
       const CONFIG = {
         SUPABASE_URL: 'https://zkypuqmwovjuuplirzig.supabase.co',
         SUPABASE_ANON_KEY: 'sb_publishable_Rhlt7E7dYumty3PpE6Sp6Q_AzkHOp-l',
+        CLIENT_SITE_URL: '',   // Müşderi saýtynyň doly adresi (mysal: 'https://ad.github.io/market/')
         currency: 'm.'
       };
 
@@ -150,10 +244,6 @@
         ? window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY)
         : null;
 
-      // ============================================================
-      // 1. HER DÜKANYŇ ÖZ E-POÇTASY WE PAROLY (Isolirlenen giriş)
-      // Her dükan eýesi diňe öz storeId-sine degişli sargytlary görýär!
-      // ============================================================
       const STORE_ACCOUNTS = [
         { email:'altyn@sahermarket.tm',   pass:'123456', storeId:'altyn_sac',  name:'Altyn Saçak' },
         { email:'pizza@sahermarket.tm',   pass:'123456', storeId:'dost_pizza', name:'Dost Pizza & Burger' },
@@ -173,6 +263,7 @@
       const DB_PRODUCTS_KEY = 'sm_db_products_v1';
       const DB_ORDERS_KEY   = 'sm_db_orders_v1';
       const SESSION_KEY     = 'sm_partner_session_v1';
+      const CLIENT_URL_KEY  = 'sm_client_site_url_v1';
 
       function loadJSON(k, f) { try { const r = localStorage.getItem(k); return r ? JSON.parse(r) : f; } catch { return f; } }
       function saveJSON(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
@@ -185,6 +276,29 @@
         clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
       }
 
+      // Image compression helper (returns lightweight base64 JPEG so it works everywhere)
+      function compressImage(file, maxW, quality) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = e => {
+            const img = new Image();
+            img.onload = () => {
+              let w = img.width, h = img.height;
+              if (w > maxW) { h = Math.round(h * (maxW / w)); w = maxW; }
+              const c = document.createElement('canvas');
+              c.width = w; c.height = h;
+              const ctx = c.getContext('2d');
+              ctx.drawImage(img, 0, 0, w, h);
+              resolve(c.toDataURL('image/jpeg', quality || 0.78));
+            };
+            img.onerror = reject;
+            img.src = e.target.result;
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      }
+
       const STATUS_FLOW = {
         new:       { label:'Täze sargyt',  cls:'st-new',       next:'accepted',  nextLabel:'✓ Kabul et' },
         accepted:  { label:'Kabul edildi', cls:'st-accepted',  next:'preparing', nextLabel:'🔥 Taýýarlap başla' },
@@ -195,13 +309,34 @@
       };
 
       const state = {
-        session: loadJSON(SESSION_KEY, null), // { email, storeId }
+        session: loadJSON(SESSION_KEY, null),
         tab: 'orders', // 'orders' | 'products' | 'settings'
-        orderFilter: 'active', // 'active' | 'done' | 'all'
+        orderFilter: 'active',
         stores: loadJSON(DB_STORES_KEY, []),
         products: loadJSON(DB_PRODUCTS_KEY, []),
-        orders: loadJSON(DB_ORDERS_KEY, [])
+        orders: loadJSON(DB_ORDERS_KEY, []),
+        newProdImg: '',
+        editProdImg: '',
+        setLogoImg: '',
+        setCoverImg: ''
       };
+
+      function getClientSiteUrl() {
+        return (CONFIG.CLIENT_SITE_URL || localStorage.getItem(CLIENT_URL_KEY) || '').trim();
+      }
+
+      function openClientSite() {
+        const saved = getClientSiteUrl();
+        if (saved) { window.open(saved, '_blank', 'noopener'); return; }
+        // If current file is named dukan.html / dukan-v2.html in same folder as index.html
+        if (/dukan/i.test(window.location.pathname)) {
+          window.open('index.html', '_blank', 'noopener');
+          return;
+        }
+        // Separate site: ask user once and save it
+        document.getElementById('clientUrlInput').value = '';
+        document.getElementById('siteUrlModal').classList.add('open');
+      }
 
       function refreshLocal() {
         state.stores = loadJSON(DB_STORES_KEY, []);
@@ -209,18 +344,13 @@
         state.orders = loadJSON(DB_ORDERS_KEY, []);
       }
 
-      // Live notification when index.html places a new order for THIS store ONLY!
       window.addEventListener('storage', e => {
         if (e.key === DB_ORDERS_KEY || e.key === DB_STORES_KEY || e.key === DB_PRODUCTS_KEY) {
-          const prevMyCount = state.session
-            ? state.orders.filter(o => o.storeId === state.session.storeId).length
-            : 0;
+          const prevMyCount = state.session ? state.orders.filter(o => o.storeId === state.session.storeId).length : 0;
           refreshLocal();
           if (state.session) {
             const newMyCount = state.orders.filter(o => o.storeId === state.session.storeId).length;
-            if (e.key === DB_ORDERS_KEY && newMyCount > prevMyCount) {
-              toast('🔔 Täze sargyt geldi!');
-            }
+            if (e.key === DB_ORDERS_KEY && newMyCount > prevMyCount) toast('🔔 Täze sargyt geldi!');
           }
           render();
         }
@@ -228,25 +358,37 @@
 
       function currentStore() {
         if (!state.session) return null;
-        return state.stores.find(s => s.id === state.session.storeId) ||
-          { id: state.session.storeId, name: state.session.name || state.session.storeId, emoji:'🏪', isOpen:true, eta:'30–45 min', hours:'09:00–22:00', phone:'' };
+        return state.stores.find(s => s.id === state.session.storeId) || {
+          id: state.session.storeId, name: state.session.name || state.session.storeId,
+          emoji:'🏪', desc:'', isOpen:true, eta:'30–45 min', hours:'09:00–22:00', phone:'', logoUrl:'', coverUrl:''
+        };
       }
 
-      // STRICT ISOLATION: Only orders belonging to logged-in storeId
-      function myOrders() {
-        if (!state.session) return [];
-        return state.orders.filter(o => o.storeId === state.session.storeId);
+      function myOrders() { return state.session ? state.orders.filter(o => o.storeId === state.session.storeId) : []; }
+      function myProducts() { return state.session ? state.products.filter(p => p.storeId === state.session.storeId) : []; }
+
+      function mapStoreFromSb(r) {
+        return {
+          id:r.id, name:r.name, type:r.type, emoji:r.emoji || '🏪', desc:r.desc || '',
+          cats:r.cats || [], grad:r.grad, soft:r.soft, eta:r.eta || '30–45 min',
+          rating:r.rating || '4.8', hours:r.hours || '09:00–22:00',
+          isOpen:r.is_open !== false, phone:r.phone || '',
+          logoUrl:r.logo_url || '', coverUrl:r.cover_url || ''
+        };
       }
-      function myProducts() {
-        if (!state.session) return [];
-        return state.products.filter(p => p.storeId === state.session.storeId);
+      function mapProdFromSb(r) {
+        return {
+          id:r.id, storeId:r.store_id, cat:r.cat || 'Esasy', title:r.title,
+          unit:r.unit || '1 sany', price:Number(r.price), oldPrice:r.old_price ? Number(r.old_price) : null,
+          emoji:r.emoji || '📦', deal:!!r.deal, inStock:r.in_stock !== false,
+          desc:r.desc || '', imageUrl:r.image_url || ''
+        };
       }
 
       async function handleLogin(email, pass) {
         const cleanEmail = email.trim().toLowerCase();
-        // Supabase Auth mode
         if (sb) {
-          const { data, error } = await sb.auth.signInWithPassword({ email: cleanEmail, password: pass });
+          const { error } = await sb.auth.signInWithPassword({ email: cleanEmail, password: pass });
           if (error) return 'E-poçta ýa-da parol nädogry.';
           const { data: st } = await sb.from('stores').select('*').eq('owner_email', cleanEmail).single();
           if (!st) return 'Bu hasaba bagly dükan tapylmady.';
@@ -256,7 +398,6 @@
           render();
           return null;
         }
-        // Local Multi-Tenant Auth mode
         const acc = STORE_ACCOUNTS.find(a => a.email === cleanEmail && a.pass === pass);
         if (!acc) return 'E-poçta ýa-da parol nädogry. (Parol: 123456)';
         state.session = { email: acc.email, storeId: acc.storeId, name: acc.name };
@@ -280,8 +421,8 @@
           customerPhone:r.customer_phone, address:r.address, note:r.note, pay:r.pay_method,
           items:r.items, total:r.total, count:r.count
         }));
-        if (pRes.data) state.products = pRes.data;
-        if (sRes.data) state.stores = sRes.data;
+        if (pRes.data) state.products = pRes.data.map(mapProdFromSb);
+        if (sRes.data) state.stores = sRes.data.map(mapStoreFromSb);
         render();
       }
 
@@ -314,18 +455,104 @@
         render();
       }
 
-      async function addProduct(title, price, unit, cat, emoji) {
+      async function addProduct(data) {
         const p = {
           id: 'p_' + Date.now(),
           storeId: state.session.storeId,
-          title, price: Number(price), unit: unit || '1 sany',
-          cat: cat || 'Esasy', emoji: emoji || '📦',
-          inStock: true, desc: ''
+          title: data.title,
+          price: Number(data.price),
+          oldPrice: data.oldPrice ? Number(data.oldPrice) : null,
+          deal: !!(data.oldPrice && Number(data.oldPrice) > Number(data.price)),
+          unit: data.unit || '1 sany',
+          cat: data.cat || 'Esasy',
+          emoji: data.emoji || '📦',
+          desc: data.desc || '',
+          imageUrl: data.imageUrl || '',
+          inStock: true
         };
         state.products.unshift(p);
         saveJSON(DB_PRODUCTS_KEY, state.products);
-        if (sb) await sb.from('products').insert([{ id:p.id, store_id:p.storeId, title:p.title, price:p.price, unit:p.unit, cat:p.cat, emoji:p.emoji, in_stock:true }]);
+        if (sb) {
+          const { error } = await sb.from('products').insert([{
+            id:p.id, store_id:p.storeId, title:p.title, price:p.price, old_price:p.oldPrice,
+            deal:p.deal, unit:p.unit, cat:p.cat, emoji:p.emoji, desc:p.desc,
+            image_url:p.imageUrl, in_stock:true
+          }]);
+          if (error) { toast('Supabase ýalňyşlygy: ' + error.message); return; }
+        }
+        state.newProdImg = '';
         toast('Täze haryt goşuldy ✓');
+        render();
+      }
+
+      async function updateProduct(pid, data) {
+        const idx = state.products.findIndex(p => p.id === pid && p.storeId === state.session.storeId);
+        if (idx === -1) return;
+        const oldP = data.oldPrice ? Number(data.oldPrice) : null;
+        const updated = {
+          ...state.products[idx],
+          title: data.title,
+          price: Number(data.price),
+          oldPrice: oldP,
+          deal: !!(oldP && oldP > Number(data.price)),
+          unit: data.unit || '1 sany',
+          cat: data.cat || 'Esasy',
+          emoji: data.emoji || '📦',
+          desc: data.desc || '',
+          imageUrl: data.imageUrl || ''
+        };
+        state.products[idx] = updated;
+        saveJSON(DB_PRODUCTS_KEY, state.products);
+        if (sb) {
+          const { error } = await sb.from('products').update({
+            title:updated.title, price:updated.price, old_price:updated.oldPrice,
+            deal:updated.deal, unit:updated.unit, cat:updated.cat, emoji:updated.emoji,
+            desc:updated.desc, image_url:updated.imageUrl
+          }).eq('id', pid).eq('store_id', state.session.storeId);
+          if (error) { toast('Supabase ýalňyşlygy: ' + error.message); return; }
+        }
+        toast('Haryt täzelendi ✓');
+        render();
+      }
+
+      async function deleteProduct(pid) {
+        state.products = state.products.filter(p => !(p.id === pid && p.storeId === state.session.storeId));
+        saveJSON(DB_PRODUCTS_KEY, state.products);
+        if (sb) await sb.from('products').delete().eq('id', pid).eq('store_id', state.session.storeId);
+        toast('Haryt pozuldy 🗑️');
+        render();
+      }
+
+      async function saveStoreSettings(data) {
+        let idx = state.stores.findIndex(s => s.id === state.session.storeId);
+        if (idx === -1) {
+          state.stores.push({ id: state.session.storeId, isOpen: true });
+          idx = state.stores.length - 1;
+        }
+        state.stores[idx] = {
+          ...state.stores[idx],
+          name: data.name,
+          desc: data.desc,
+          hours: data.hours,
+          eta: data.eta,
+          phone: data.phone,
+          logoUrl: data.logoUrl,
+          coverUrl: data.coverUrl
+        };
+        state.session.name = data.name;
+        saveJSON(SESSION_KEY, state.session);
+        saveJSON(DB_STORES_KEY, state.stores);
+        if (data.clientSiteUrl !== undefined) {
+          localStorage.setItem(CLIENT_URL_KEY, data.clientSiteUrl.trim());
+        }
+        if (sb) {
+          const { error } = await sb.from('stores').update({
+            name:data.name, desc:data.desc, hours:data.hours, eta:data.eta,
+            phone:data.phone, logo_url:data.logoUrl, cover_url:data.coverUrl
+          }).eq('id', state.session.storeId);
+          if (error) { toast('Supabase ýalňyşlygy: ' + error.message); return; }
+        }
+        toast('Dükan maglumatlary ýatda saklandy ✓');
         render();
       }
 
@@ -354,7 +581,7 @@
               '<div class="demo-title">Synag üçin dükan hasaplary (parol: 123456):</div>' +
               '<div class="demo-list">' + demos + '</div>' +
             '</div>' +
-            '<div style="text-align:center;margin-top:16px;font-size:12px;"><a href="index.html" style="color:#34d399;text-decoration:none;font-weight:700;">← Müşderi saýtyna geç</a></div>' +
+            '<div style="text-align:center;margin-top:16px;font-size:12px;"><button type="button" id="loginViewSiteBtn" style="border:none;background:none;color:#34d399;font-weight:700;cursor:pointer;">← Müşderi saýtyny gör</button></div>' +
           '</div>' +
         '</div>';
       }
@@ -403,37 +630,105 @@
             }).join('') + '</div>'
             : '<div class="empty"><div style="font-size:36px;margin-bottom:8px;">📭</div><strong>Bu bölümde entek sargyt ýok</strong><p style="font-size:12px;margin-top:4px;">Müşderi <strong>' + esc(store.name) + '</strong> üçin sargyt edende şu ýerde derrew görner.</p></div>');
         } else if (state.tab === 'products') {
-          content = '<form id="addProdForm" class="add-prod-box">' +
-              '<h3 style="font-size:15px;font-weight:800;margin-bottom:8px;">➕ Täze haryt / tagam goş</h3>' +
+          content = '<form id="addProdForm" class="panel-box">' +
+              '<h3 style="font-size:15.5px;font-weight:800;margin-bottom:4px;">➕ Täze haryt / tagam goş</h3>' +
               '<div class="form-row">' +
-                '<div class="field" style="margin-top:0;"><label>Ady *</label><input id="pTitle" required placeholder="Mysal: Täze somsa" /></div>' +
-                '<div class="field" style="margin-top:0;"><label>Bahasy (m.) *</label><input id="pPrice" type="number" min="1" required placeholder="15" /></div>' +
+                '<div class="field"><label>Ady *</label><input id="pTitle" required placeholder="Mysal: Täze somsa" /></div>' +
+                '<div class="field"><label>Bahasy (m.) *</label><input id="pPrice" type="number" min="1" step="0.5" required placeholder="15" /></div>' +
               '</div>' +
-              '<div class="form-row" style="margin-top:10px;">' +
-                '<div class="field" style="margin-top:0;"><label>Ölçegi</label><input id="pUnit" placeholder="1 sany / 500 g" /></div>' +
-                '<div class="field" style="margin-top:0;"><label>Emoji</label><input id="pEmoji" placeholder="🥟" value="📦" /></div>' +
+              '<div class="form-row-3">' +
+                '<div class="field"><label>Öňki bahasy</label><input id="pOldPrice" type="number" min="0" step="0.5" placeholder="Islege görä" /></div>' +
+                '<div class="field"><label>Ölçegi</label><input id="pUnit" placeholder="1 sany / 500 g" /></div>' +
+                '<div class="field"><label>Emoji</label><input id="pEmoji" placeholder="🥟" value="📦" /></div>' +
               '</div>' +
-              '<button type="submit" class="btn-primary" style="height:42px;margin-top:12px;">Harydy goş</button>' +
+              '<div class="field">' +
+                '<label>Harydyň suraty (telefondan ýa-da URL)</label>' +
+                '<div class="upload-box">' +
+                  '<div class="upload-preview" id="newProdPrev">' + (state.newProdImg ? '<img src="' + esc(state.newProdImg) + '" />' : '📷') + '</div>' +
+                  '<div class="upload-controls">' +
+                    '<div class="upload-btns">' +
+                      '<label class="file-lbl">📷 Surat saýla<input type="file" accept="image/*" id="pImgFile" /></label>' +
+                      (state.newProdImg ? '<button type="button" class="clear-img-btn" id="pImgClear">Poz</button>' : '') +
+                    '</div>' +
+                    '<input class="url-small" id="pImgUrl" value="' + esc(state.newProdImg.startsWith('data:') ? '' : state.newProdImg) + '" placeholder="ýa-da surat salgysyny (https://...) goýuň" />' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+              '<button type="submit" class="btn-primary" style="height:44px;margin-top:14px;">Harydy goş</button>' +
             '</form>' +
-            '<div class="prod-manage-grid">' + products.map(p =>
+            (products.length ? '<div class="prod-manage-grid">' + products.map(p =>
               '<div class="pm-card">' +
-                '<div class="pm-emoji">' + p.emoji + '</div>' +
-                '<div class="pm-info"><div class="pm-title">' + esc(p.title) + '</div><div class="pm-sub">' + esc(p.unit) + ' • <strong style="color:#fff;">' + fmt(p.price) + '</strong></div></div>' +
-                '<button type="button" class="stock-btn ' + (p.inStock !== false ? 'in' : 'out') + '" data-stock="' + p.id + '">' + (p.inStock !== false ? 'Bar ✓' : 'Gutardy') + '</button>' +
+                '<div class="pm-top">' +
+                  '<div class="pm-thumb">' + (p.imageUrl ? '<img src="' + esc(p.imageUrl) + '" alt="" />' : (p.emoji || '📦')) + '</div>' +
+                  '<div class="pm-info">' +
+                    '<div class="pm-title">' + esc(p.title) + '</div>' +
+                    '<div class="pm-sub">' + esc(p.unit) + ' • <strong style="color:#fff;">' + fmt(p.price) + '</strong>' + (p.oldPrice ? ' <span style="text-decoration:line-through;opacity:.6;">' + fmt(p.oldPrice) + '</span>' : '') + '</div>' +
+                  '</div>' +
+                '</div>' +
+                '<div class="pm-actions">' +
+                  '<button type="button" class="pm-btn ' + (p.inStock !== false ? 'in' : 'out') + '" data-stock="' + esc(p.id) + '">' + (p.inStock !== false ? 'Bar ✓' : 'Gutardy') + '</button>' +
+                  '<button type="button" class="pm-btn edit" data-edit="' + esc(p.id) + '">✏️ Üýtget</button>' +
+                  '<button type="button" class="pm-btn del" data-del="' + esc(p.id) + '">🗑️ Poz</button>' +
+                '</div>' +
               '</div>'
-            ).join('') + '</div>';
+            ).join('') + '</div>' : '<div class="empty">Entek haryt ýok. Ýokardan ilkinji harydyňyzy goşuň.</div>');
+        } else if (state.tab === 'settings') {
+          const logoPrev = state.setLogoImg !== undefined ? state.setLogoImg : (store.logoUrl || '');
+          const coverPrev = state.setCoverImg !== undefined ? state.setCoverImg : (store.coverUrl || '');
+          content = '<form id="settingsForm" class="panel-box">' +
+              '<h3 style="font-size:16px;font-weight:800;margin-bottom:4px;">⚙️ Dükan logotypy, suraty we maglumatlary</h3>' +
+              '<div class="form-row">' +
+                '<div class="field">' +
+                  '<label>Dükan Logotypy (Logo)</label>' +
+                  '<div class="upload-box">' +
+                    '<div class="upload-preview" id="sLogoPrev">' + (logoPrev ? '<img src="' + esc(logoPrev) + '" />' : (store.emoji || '🏪')) + '</div>' +
+                    '<div class="upload-controls">' +
+                      '<div class="upload-btns">' +
+                        '<label class="file-lbl">📷 Logo ýükle<input type="file" accept="image/*" id="sLogoFile" /></label>' +
+                        (logoPrev ? '<button type="button" class="clear-img-btn" id="sLogoClear">Poz</button>' : '') +
+                      '</div>' +
+                      '<input class="url-small" id="sLogoUrl" value="' + esc(logoPrev.startsWith('data:') ? '' : logoPrev) + '" placeholder="ýa-da Logo URL..." />' +
+                    '</div>' +
+                  '</div>' +
+                '</div>' +
+                '<div class="field">' +
+                  '<label>Dükan Kapak Suraty (Banner)</label>' +
+                  '<div class="upload-box">' +
+                    '<div class="upload-preview wide" id="sCoverPrev">' + (coverPrev ? '<img src="' + esc(coverPrev) + '" />' : '🖼️') + '</div>' +
+                    '<div class="upload-controls">' +
+                      '<div class="upload-btns">' +
+                        '<label class="file-lbl">🖼️ Surat ýükle<input type="file" accept="image/*" id="sCoverFile" /></label>' +
+                        (coverPrev ? '<button type="button" class="clear-img-btn" id="sCoverClear">Poz</button>' : '') +
+                      '</div>' +
+                      '<input class="url-small" id="sCoverUrl" value="' + esc(coverPrev.startsWith('data:') ? '' : coverPrev) + '" placeholder="ýa-da Banner URL..." />' +
+                    '</div>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+              '<div class="form-row">' +
+                '<div class="field"><label>Dükanyň ady *</label><input id="sName" required value="' + esc(store.name) + '" /></div>' +
+                '<div class="field"><label>Telefon (GSM)</label><input id="sPhone" value="' + esc(store.phone || '') + '" placeholder="+993 65 ..." /></div>' +
+              '</div>' +
+              '<div class="field"><label>Düşündiriş</label><input id="sDesc" value="' + esc(store.desc || '') + '" placeholder="Dükanyňyz barada gysgaça..." /></div>' +
+              '<div class="form-row">' +
+                '<div class="field"><label>Iş sagatlary</label><input id="sHours" value="' + esc(store.hours || '09:00–22:00') + '" /></div>' +
+                '<div class="field"><label>Eltip bermek wagty</label><input id="sEta" value="' + esc(store.eta || '30–45 min') + '" /></div>' +
+              '</div>' +
+              '<div class="field"><label>Müşderi saýtynyň salgysy («Saýty gör» düwmesi üçin)</label><input id="sClientUrl" type="url" value="' + esc(getClientSiteUrl()) + '" placeholder="https://sizin-saytynyz.github.io/market/" /></div>' +
+              '<button type="submit" class="btn-primary">Sazlamalary ýatda sakla ✓</button>' +
+            '</form>';
         }
 
         return '<div class="dash-shell">' +
           '<div class="dash-top">' +
             '<div class="store-id-wrap">' +
-              '<div class="store-avatar">' + (store.emoji || '🏪') + '</div>' +
+              '<div class="store-avatar">' + (store.logoUrl ? '<img src="' + esc(store.logoUrl) + '" alt="" />' : (store.emoji || '🏪')) + '</div>' +
               '<div><div class="store-name">' + esc(store.name) + '</div><div class="store-email">' + esc(state.session.email) + ' • Diňe öz sargytlaryňyz</div></div>' +
             '</div>' +
             '<div class="top-actions">' +
               '<button type="button" class="status-toggle ' + (store.isOpen !== false ? 'open' : 'closed') + '" id="toggleOpenBtn">' + (store.isOpen !== false ? '● Dükan Açyk' : '● Dükan Ýapyk') + '</button>' +
-              '<a href="index.html" class="logout-btn" style="text-decoration:none;">🌐 Saýty gör</a>' +
-              '<button type="button" class="logout-btn" id="logoutBtn">Çykyş</button>' +
+              '<button type="button" class="top-btn" id="viewSiteBtn">🌐 Saýty gör</button>' +
+              '<button type="button" class="top-btn" id="logoutBtn">Çykyş</button>' +
             '</div>' +
           '</div>' +
 
@@ -446,6 +741,7 @@
           '<div class="tabs">' +
             '<button type="button" class="tab-btn' + (state.tab === 'orders' ? ' active' : '') + '" data-tab="orders">📦 Sargytlar <span class="pill-cnt">' + activeOrders.length + '</span></button>' +
             '<button type="button" class="tab-btn' + (state.tab === 'products' ? ' active' : '') + '" data-tab="products">🛍️ Harytlar (' + products.length + ')</button>' +
+            '<button type="button" class="tab-btn' + (state.tab === 'settings' ? ' active' : '') + '" data-tab="settings">⚙️ Dükan & Logo</button>' +
           '</div>' +
           content +
         '</div>';
@@ -455,6 +751,100 @@
         document.getElementById('root').innerHTML = state.session ? renderDashboard() : renderLogin();
       }
 
+      // Open edit modal
+      function openEditModal(pid) {
+        const p = state.products.find(x => x.id === pid && x.storeId === state.session.storeId);
+        if (!p) return;
+        state.editProdImg = p.imageUrl || '';
+        document.getElementById('eId').value = p.id;
+        document.getElementById('eTitle').value = p.title || '';
+        document.getElementById('ePrice').value = p.price || '';
+        document.getElementById('eOldPrice').value = p.oldPrice || '';
+        document.getElementById('eUnit').value = p.unit || '';
+        document.getElementById('eCat').value = p.cat || '';
+        document.getElementById('eEmoji').value = p.emoji || '📦';
+        document.getElementById('eDesc').value = p.desc || '';
+        document.getElementById('eImgUrl').value = state.editProdImg.startsWith('data:') ? '' : state.editProdImg;
+        document.getElementById('eImgPrev').innerHTML = state.editProdImg ? '<img src="' + esc(state.editProdImg) + '" />' : (p.emoji || '📦');
+        document.getElementById('editModal').classList.add('open');
+      }
+
+      // Edit modal listeners
+      document.getElementById('closeEditModal').addEventListener('click', () => document.getElementById('editModal').classList.remove('open'));
+      document.getElementById('editModal').addEventListener('click', e => { if (e.target.id === 'editModal') document.getElementById('editModal').classList.remove('open'); });
+      document.getElementById('eImgFile').addEventListener('change', async e => {
+        const file = e.target.files[0]; if (!file) return;
+        state.editProdImg = await compressImage(file, 520, 0.78);
+        document.getElementById('eImgPrev').innerHTML = '<img src="' + state.editProdImg + '" />';
+        document.getElementById('eImgUrl').value = '';
+      });
+      document.getElementById('eImgUrl').addEventListener('input', e => {
+        const v = e.target.value.trim();
+        state.editProdImg = v;
+        document.getElementById('eImgPrev').innerHTML = v ? '<img src="' + esc(v) + '" />' : '📦';
+      });
+      document.getElementById('eImgClear').addEventListener('click', () => {
+        state.editProdImg = '';
+        document.getElementById('eImgUrl').value = '';
+        document.getElementById('eImgPrev').textContent = '📦';
+      });
+      document.getElementById('editProdForm').addEventListener('submit', async e => {
+        e.preventDefault();
+        const pid = document.getElementById('eId').value;
+        await updateProduct(pid, {
+          title: document.getElementById('eTitle').value.trim(),
+          price: document.getElementById('ePrice').value,
+          oldPrice: document.getElementById('eOldPrice').value,
+          unit: document.getElementById('eUnit').value.trim(),
+          cat: document.getElementById('eCat').value.trim(),
+          emoji: document.getElementById('eEmoji').value.trim(),
+          desc: document.getElementById('eDesc').value.trim(),
+          imageUrl: state.editProdImg
+        });
+        document.getElementById('editModal').classList.remove('open');
+      });
+
+      // Site URL modal listeners
+      document.getElementById('closeSiteUrlModal').addEventListener('click', () => document.getElementById('siteUrlModal').classList.remove('open'));
+      document.getElementById('saveClientUrlBtn').addEventListener('click', () => {
+        let u = document.getElementById('clientUrlInput').value.trim();
+        if (!u) { toast('Saýtyň salgysyny ýazyň'); return; }
+        if (!/^https?:\/\//i.test(u)) u = 'https://' + u;
+        localStorage.setItem(CLIENT_URL_KEY, u);
+        document.getElementById('siteUrlModal').classList.remove('open');
+        window.open(u, '_blank', 'noopener');
+      });
+
+      // Root file & input listeners
+      document.getElementById('root').addEventListener('change', async e => {
+        if (e.target.id === 'pImgFile' && e.target.files[0]) {
+          state.newProdImg = await compressImage(e.target.files[0], 520, 0.78);
+          document.getElementById('newProdPrev').innerHTML = '<img src="' + state.newProdImg + '" />';
+        } else if (e.target.id === 'sLogoFile' && e.target.files[0]) {
+          state.setLogoImg = await compressImage(e.target.files[0], 400, 0.8);
+          document.getElementById('sLogoPrev').innerHTML = '<img src="' + state.setLogoImg + '" />';
+        } else if (e.target.id === 'sCoverFile' && e.target.files[0]) {
+          state.setCoverImg = await compressImage(e.target.files[0], 850, 0.78);
+          document.getElementById('sCoverPrev').innerHTML = '<img src="' + state.setCoverImg + '" />';
+        }
+      });
+
+      document.getElementById('root').addEventListener('input', e => {
+        if (e.target.id === 'pImgUrl') {
+          state.newProdImg = e.target.value.trim();
+          const prev = document.getElementById('newProdPrev');
+          if (prev) prev.innerHTML = state.newProdImg ? '<img src="' + esc(state.newProdImg) + '" />' : '📷';
+        } else if (e.target.id === 'sLogoUrl') {
+          state.setLogoImg = e.target.value.trim();
+          const prev = document.getElementById('sLogoPrev');
+          if (prev) prev.innerHTML = state.setLogoImg ? '<img src="' + esc(state.setLogoImg) + '" />' : '🏪';
+        } else if (e.target.id === 'sCoverUrl') {
+          state.setCoverImg = e.target.value.trim();
+          const prev = document.getElementById('sCoverPrev');
+          if (prev) prev.innerHTML = state.setCoverImg ? '<img src="' + esc(state.setCoverImg) + '" />' : '🖼️';
+        }
+      });
+
       document.getElementById('root').addEventListener('submit', async e => {
         if (e.target.id === 'loginForm') {
           e.preventDefault();
@@ -462,13 +852,27 @@
           if (err) { const b = document.getElementById('loginErr'); b.textContent = err; b.classList.add('show'); }
         } else if (e.target.id === 'addProdForm') {
           e.preventDefault();
-          addProduct(
-            document.getElementById('pTitle').value.trim(),
-            document.getElementById('pPrice').value,
-            document.getElementById('pUnit').value.trim(),
-            'Täze',
-            document.getElementById('pEmoji').value.trim()
-          );
+          await addProduct({
+            title: document.getElementById('pTitle').value.trim(),
+            price: document.getElementById('pPrice').value,
+            oldPrice: document.getElementById('pOldPrice').value,
+            unit: document.getElementById('pUnit').value.trim(),
+            emoji: document.getElementById('pEmoji').value.trim(),
+            imageUrl: state.newProdImg
+          });
+        } else if (e.target.id === 'settingsForm') {
+          e.preventDefault();
+          const st = currentStore();
+          await saveStoreSettings({
+            name: document.getElementById('sName').value.trim(),
+            phone: document.getElementById('sPhone').value.trim(),
+            desc: document.getElementById('sDesc').value.trim(),
+            hours: document.getElementById('sHours').value.trim(),
+            eta: document.getElementById('sEta').value.trim(),
+            logoUrl: state.setLogoImg !== undefined ? state.setLogoImg : (st.logoUrl || ''),
+            coverUrl: state.setCoverImg !== undefined ? state.setCoverImg : (st.coverUrl || ''),
+            clientSiteUrl: document.getElementById('sClientUrl').value.trim()
+          });
         }
       });
 
@@ -479,13 +883,22 @@
           document.getElementById('lPass').value = el('[data-fill-pass]').getAttribute('data-fill-pass');
           return;
         }
+        if (el('#viewSiteBtn') || el('#loginViewSiteBtn')) { openClientSite(); return; }
         if (el('#logoutBtn')) {
           state.session = null; localStorage.removeItem(SESSION_KEY);
           if (sb) sb.auth.signOut();
           render(); return;
         }
         if (el('#toggleOpenBtn')) { toggleStoreOpen(); return; }
-        if (el('[data-tab]')) { state.tab = el('[data-tab]').getAttribute('data-tab'); render(); return; }
+        if (el('[data-tab]')) {
+          state.tab = el('[data-tab]').getAttribute('data-tab');
+          if (state.tab === 'settings') {
+            const st = currentStore();
+            state.setLogoImg = st.logoUrl || '';
+            state.setCoverImg = st.coverUrl || '';
+          }
+          render(); return;
+        }
         if (el('[data-of]')) { state.orderFilter = el('[data-of]').getAttribute('data-of'); render(); return; }
         if (el('[data-next-code]')) {
           const btn = el('[data-next-code]');
@@ -497,6 +910,14 @@
           return;
         }
         if (el('[data-stock]')) { toggleProductStock(el('[data-stock]').getAttribute('data-stock')); return; }
+        if (el('[data-edit]')) { openEditModal(el('[data-edit]').getAttribute('data-edit')); return; }
+        if (el('[data-del]')) {
+          if (confirm('Bu harydy hemişelik pozmak isleýärsiňizmi?')) deleteProduct(el('[data-del]').getAttribute('data-del'));
+          return;
+        }
+        if (el('#pImgClear')) { state.newProdImg = ''; render(); return; }
+        if (el('#sLogoClear')) { state.setLogoImg = ''; render(); return; }
+        if (el('#sCoverClear')) { state.setCoverImg = ''; render(); return; }
       });
 
       render();
