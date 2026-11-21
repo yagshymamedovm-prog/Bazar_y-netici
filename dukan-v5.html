@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="tk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1120" />
+  <title>ŞäherMarket Partner ULTRA — Doly Dükan Ulgamy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0b1120; --surface:#111827; --card:#172133; --soft:#1f2c44;
+      --ink:#f8fafc; --sub:#94a3b8; --border:rgba(255,255,255,.09);
+      --accent:#10b981; --accent2:#059669; --orange:#f97316; --blue:#3b82f6;
+      --violet:#8b5cf6; --warn:#f59e0b; --danger:#ef4444;
+      --grad:linear-gradient(135deg,#10b981,#0d9488);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    html,body{min-height:100%;background:radial-gradient(circle at top right,#064e3b 0%,#0b1120 48%);
+      color:var(--ink);font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,sans-serif;font-size:13.5px;line-height:1.4}
+    button,input,textarea,select{font-family:inherit;color:inherit}
+
+    /* ===== LOGIN ===== */
+    .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+    .login-card{width:100%;max-width:410px;background:rgba(23,33,51,.92);backdrop-filter:blur(20px);
+      border:1px solid var(--border);border-radius:26px;padding:28px 24px;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+    .logo-badge{width:52px;height:52px;border-radius:16px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;margin-bottom:14px}
+    .field{margin-top:10px}
+    .field label{display:block;font-size:11.5px;font-weight:700;color:#cbd5e1;margin-bottom:5px}
+    .field input,.field select,.field textarea{width:100%;background:rgba(11,17,32,.75);border:1.5px solid var(--border);
+      border-radius:11px;padding:9px 11px;font-size:13px;font-weight:600;color:#fff;outline:none}
+    .field textarea{resize:vertical;min-height:56px}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}
+    .btn-primary{width:100%;height:44px;margin-top:14px;border:none;border-radius:12px;background:var(--grad);color:#fff;font-size:13.5px;font-weight:800;cursor:pointer}
+    .btn-primary:active{transform:scale(.98)}
+    .err-box{display:none;margin-top:10px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.4);color:#fca5a5;padding:9px;border-radius:10px;font-size:12px;font-weight:700}
+    .err-box.show{display:block}
+    .demo-list{display:grid;grid-template-columns:1fr 1fr;gap:7px;max-height:140px;overflow:auto;margin-top:8px}
+    .demo-acc{border:1px solid var(--border);background:rgba(255,255,255,.04);border-radius:10px;padding:7px;text-align:left;cursor:pointer}
+    .demo-acc strong{display:block;font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .demo-acc span{font-size:10px;color:var(--sub);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+    /* ===== DASHBOARD ===== */
+    .alarm-banner{display:none;background:linear-gradient(90deg,#ea580c,#ec4899);color:#fff;padding:12px 16px;border-radius:16px;
+      margin-bottom:12px;align-items:center;justify-content:space-between;font-weight:800;animation:pulseBg 1.2s infinite}
+    .alarm-banner.show{display:flex}
+    @keyframes pulseBg{0%,100%{opacity:1}50%{opacity:.78}}
+
+    .dash-shell{max-width:1120px;margin:0 auto;padding:14px 12px 90px}
+    .dash-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      background:var(--card);border:1px solid var(--border);border-radius:20px;padding:13px 15px;margin-bottom:12px}
+    .store-id-wrap{display:flex;align-items:center;gap:11px}
+    .store-avatar{width:48px;height:48px;border-radius:14px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden;flex-shrink:0;border:1px solid var(--border)}
+    .store-avatar img{width:100%;height:100%;object-fit:cover}
+    .top-actions{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+    .pill-btn{border:1px solid var(--border);background:var(--soft);border-radius:11px;padding:7px 11px;font-size:11.5px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:5px;text-decoration:none}
+    .pill-btn.open{background:rgba(16,185,129,.18);color:#34d399;border-color:rgba(16,185,129,.4)}
+    .pill-btn.closed{background:rgba(239,68,68,.18);color:#f87171;border-color:rgba(239,68,68,.4)}
+    .pill-btn.busy{background:rgba(249,115,22,.22);color:#fdba74;border-color:rgba(249,115,22,.45)}
+    .pill-btn.auto-on{background:rgba(59,130,246,.22);color:#93c5fd;border-color:rgba(59,130,246,.45)}
+    .pill-btn.cashier{background:rgba(139,92,246,.22);color:#c4b5fd;border-color:rgba(139,92,246,.45)}
+
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px}
+    .stat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:12px}
+    .stat-lbl{font-size:11px;color:var(--sub);font-weight:600}
+    .stat-val{font-size:19px;font-weight:800;margin-top:3px}
+    .stat-val.green{color:#34d399}
+    .stat-val.orange{color:#fb923c}
+    .stat-val.blue{color:#60a5fa}
+
+    .tabs{display:flex;gap:6px;margin-bottom:13px;overflow-x:auto;padding-bottom:3px}
+    .tab-btn{border:1px solid var(--border);background:var(--card);border-radius:12px;padding:9px 13px;font-size:12px;font-weight:800;color:var(--sub);cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px}
+    .tab-btn.active{background:var(--grad);border-color:transparent;color:#fff}
+    .pill-cnt{background:rgba(0,0,0,.28);padding:1px 6px;border-radius:999px;font-size:10.5px}
+
+    /* ===== PANELS & FORMS ===== */
+    .panel-box{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:15px;margin-bottom:12px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+    .form-row-4{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+    .toggle-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(11,17,32,.48);border:1px solid var(--border);border-radius:13px;padding:11px 13px;margin-bottom:10px}
+    .switch{position:relative;width:44px;height:24px;flex-shrink:0}
+    .switch input{opacity:0;width:0;height:0}
+    .slider{position:absolute;inset:0;background:#334155;border-radius:999px;cursor:pointer;transition:.2s}
+    .slider::before{content:'';position:absolute;width:18px;height:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s}
+    .switch input:checked + .slider{background:var(--accent)}
+    .switch input:checked + .slider::before{transform:translateX(20px)}
+
+    /* ===== ORDERS & CHRONOMETER ===== */
+    .filter-row{display:flex;gap:7px;margin-bottom:11px;overflow-x:auto;align-items:center}
+    .f-chip{border:1px solid var(--border);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:11.5px;font-weight:700;color:var(--sub);cursor:pointer;white-space:nowrap}
+    .f-chip.active{background:#fff;color:#0b1120;border-color:#fff}
+    .orders-list{display:grid;grid-template-columns:1fr;gap:11px}
+    .order-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:9px}
+    .order-card.is-new{border-color:rgba(16,185,129,.65);box-shadow:0 0 0 1px rgba(16,185,129,.28)}
+    .oc-top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+    .oc-badge{font-size:10.5px;font-weight:800;padding:4px 9px;border-radius:999px}
+    .st-new{background:rgba(59,130,246,.2);color:#93c5fd}
+    .st-accepted{background:rgba(245,158,11,.2);color:#fcd34d}
+    .st-preparing{background:rgba(249,115,22,.2);color:#fdba74}
+    .st-onway{background:rgba(139,92,246,.2);color:#c4b5fd}
+    .st-delivered{background:rgba(16,185,129,.2);color:#6ee7b7}
+    .st-cancelled{background:rgba(239,68,68,.2);color:#fca5a5}
+    .timer-pill{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:999px;background:rgba(16,185,129,.16);color:#6ee7b7}
+    .timer-pill.warn{background:rgba(245,158,11,.22);color:#fcd34d}
+    .timer-pill.late{background:rgba(239,68,68,.24);color:#fca5a5}
+    .oc-cust{background:rgba(11,17,32,.5);border-radius:12px;padding:9px 11px;font-size:12px;display:flex;flex-direction:column;gap:3px}
+    .oc-item-row{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;padding:3px 0;gap:8px}
+    .rm-item-btn{border:none;background:rgba(239,68,68,.18);color:#fca5a5;border-radius:6px;padding:2px 6px;font-size:10.5px;font-weight:800;cursor:pointer}
+    .oc-actions{display:flex;gap:6px;flex-wrap:wrap}
+    .act-btn{flex:1;min-width:95px;height:36px;border:none;border-radius:10px;font-size:11.5px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;text-decoration:none}
+    .act-btn.next{background:var(--grad);color:#fff}
+    .act-btn.soft{background:var(--soft);color:#fff;flex:0 0 auto;padding:0 10px}
+    .act-btn.cancel{background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);flex:0 0 auto;padding:0 10px}
+
+    /* ===== POS (MANUAL ORDER) ===== */
+    .pos-layout{display:grid;grid-template-columns:1.35fr 1fr;gap:12px;align-items:start}
+    .pos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:9px}
+    .pos-item{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:10px;cursor:pointer;text-align:left;transition:.12s;display:flex;flex-direction:column;gap:5px}
+    .pos-item:hover{border-color:var(--accent);transform:translateY(-1px)}
+    .pos-item.oos{opacity:.45;cursor:not-allowed}
+    .pos-thumb{height:58px;border-radius:10px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:26px;overflow:hidden}
+    .pos-thumb img{width:100%;height:100%;object-fit:cover}
+    .pos-cart-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid var(--border)}
+    .qty-mini{display:inline-flex;align-items:center;gap:6px;background:var(--soft);border-radius:8px;padding:2px 6px}
+    .qty-mini button{border:none;background:none;color:#fff;font-weight:800;font-size:14px;cursor:pointer;padding:0 4px}
+
+    /* ===== PRODUCTS ===== */
+    .bulk-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);border-radius:15px;padding:10px 13px;margin-bottom:12px}
+    .bulk-btn{border:none;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:800;cursor:pointer;background:var(--soft);color:#fff}
+    .bulk-btn.up{background:rgba(16,185,129,.22);color:#34d399}
+    .bulk-btn.down{background:rgba(249,115,22,.22);color:#fdba74}
+    .prod-manage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:11px}
+    .pm-card{background:var(--card);border:1px solid var(--border);border-radius:17px;padding:12px;display:flex;flex-direction:column;gap:9px}
+    .pm-top{display:flex;align-items:center;gap:11px}
+    .pm-thumb{width:54px;height:54px;border-radius:13px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:25px;flex-shrink:0;overflow:hidden}
+    .pm-thumb img{width:100%;height:100%;object-fit:cover}
+    .stock-pill{font-size:10px;font-weight:800;padding:2px 7px;border-radius:999px;display:inline-block;margin-top:3px}
+    .stock-ok{background:rgba(16,185,129,.16);color:#6ee7b7}
+    .stock-low{background:rgba(245,158,11,.22);color:#fcd34d}
+    .stock-out{background:rgba(239,68,68,.2);color:#fca5a5}
+    .pm-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding-top:8px;border-top:1px solid var(--border)}
+    .pm-btn{height:32px;border:none;border-radius:9px;font-size:11px;font-weight:800;cursor:pointer}
+    .pm-btn.in{background:rgba(16,185,129,.18);color:#34d399}
+    .pm-btn.out{background:rgba(245,158,11,.18);color:#fcd34d}
+    .pm-btn.edit{background:rgba(59,130,246,.18);color:#93c5fd}
+    .pm-btn.copy{background:rgba(139,92,246,.18);color:#c4b5fd}
+    .pm-btn.del{background:rgba(239,68,68,.16);color:#fca5a5}
+
+    /* ===== CRM / VIP ===== */
+    .crm-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:13px;margin-bottom:9px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .vip-tag{font-size:10px;font-weight:800;padding:2px 8px;border-radius:999px;background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff}
+    .bl-tag{font-size:10px;font-weight:800;padding:2px 8px;border-radius:999px;background:rgba(239,68,68,.22);color:#fca5a5}
+
+    /* ===== ANALYTICS & Z-REPORT ===== */
+    .z-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px}
+    .z-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+    .z-row:last-child{border-bottom:none}
+    .chart-bars{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;height:135px;padding:12px 4px 2px}
+    .bar-col{display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end}
+    .bar-fill{width:100%;max-width:32px;border-radius:7px 7px 3px 3px;background:var(--grad);min-height:4px}
+    .bar-val{font-size:10px;color:#34d399;font-weight:800}
+    .bar-lbl{font-size:10px;color:var(--sub);font-weight:700}
+
+    /* ===== UPLOAD, QR & MODAL ===== */
+    .upload-box{display:flex;align-items:center;gap:10px;background:rgba(11,17,32,.55);border:1.5px dashed rgba(255,255,255,.16);border-radius:13px;padding:9px;margin-top:5px;flex-wrap:wrap}
+    .upload-preview{width:48px;height:48px;border-radius:10px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden;flex-shrink:0}
+    .upload-preview.wide{width:96px}
+    .upload-preview img{width:100%;height:100%;object-fit:cover}
+    .file-lbl{display:inline-flex;align-items:center;gap:5px;background:var(--grad);color:#fff;padding:6px 10px;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer}
+    .file-lbl input{display:none}
+    .url-small{width:100%;background:rgba(11,17,32,.7);border:1px solid var(--border);border-radius:8px;padding:6px 9px;font-size:11.5px;color:#fff;outline:none;margin-top:5px}
+
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.74);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:14px;z-index:80}
+    .modal-overlay.open{display:flex}
+    .modal-card{width:100%;max-width:480px;max-height:90vh;overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:22px;padding:18px}
+    .modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+    .modal-close{width:30px;height:30px;border-radius:50%;border:none;background:var(--soft);color:#fff;font-weight:800;cursor:pointer}
+    .empty{background:var(--card);border:1px dashed var(--border);border-radius:18px;padding:30px 18px;text-align:center;color:var(--sub)}
+    .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(10px);background:#10b981;color:#fff;padding:10px 18px;border-radius:999px;font-size:12.5px;font-weight:800;opacity:0;pointer-events:none;transition:.2s;z-index:99}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    @media(max-width:740px){.pos-layout,.z-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr 1fr}.form-row,.form-row-3,.form-row-4{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- EDIT PRODUCT MODAL -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal-card">
+      <div class="modal-head"><h3 style="font-size:16px;font-weight:800;">✏️ Harydy üýtget</h3><button type="button" class="modal-close" data-close-modal="editModal">✕</button></div>
+      <form id="editProdForm">
+        <input type="hidden" id="eId" />
+        <div class="field"><label>Harydyň ady *</label><input id="eTitle" required /></div>
+        <div class="form-row-3">
+          <div class="field"><label>Satuw bahasy *</label><input id="ePrice" type="number" min="1" step="0.5" required /></div>
+          <div class="field"><label>Öňki bahasy</label><input id="eOldPrice" type="number" min="0" step="0.5" /></div>
+          <div class="field"><label>Algy / Maliýet</label><input id="eCost" type="number" min="0" step="0.5" placeholder="Peýda üçin" /></div>
+        </div>
+        <div class="form-row-3">
+          <div class="field"><label>Stok sany</label><input id="eStock" type="number" min="0" placeholder="Boş=çäksiz" /></div>
+          <div class="field"><label>Ölçegi</label><input id="eUnit" /></div>
+          <div class="field"><label>Barkod</label><input id="eBarcode" placeholder="869..." /></div>
+        </div>
+        <div class="form-row-3">
+          <div class="field"><label>Başlaýan sagat</label><input id="eTimeStart" type="time" /></div>
+          <div class="field"><label>Gutarýan sagat</label><input id="eTimeEnd" type="time" /></div>
+          <div class="field"><label>Emoji</label><input id="eEmoji" /></div>
+        </div>
+        <div class="field"><label>Goşmaça saýlawlar (Ady:Baha)</label><textarea id="eOpts" placeholder="Uly porsiýa:10&#10;Sogansyz:0"></textarea></div>
+        <div class="field">
+          <label>Surat</label>
+          <div class="upload-box">
+            <div class="upload-preview" id="eImgPrev">📦</div>
+            <div style="flex:1;"><label class="file-lbl">📷 Surat ýükle<input type="file" accept="image/*" id="eImgFile" /></label><input class="url-small" id="eImgUrl" placeholder="URL..." /></div>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary">Ýatda sakla ✓</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- PERSONAL VIP COUPON MODAL -->
+  <div class="modal-overlay" id="vipCouponModal">
+    <div class="modal-card" style="max-width:420px;">
+      <div class="modal-head"><h3 style="font-size:16px;font-weight:800;">🎟️ Şahsy / VIP Kupon Döret</h3><button type="button" class="modal-close" data-close-modal="vipCouponModal">✕</button></div>
+      <p id="vipTargetInfo" style="font-size:12px;color:#34d399;font-weight:700;margin-bottom:6px;"></p>
+      <form id="vipCouponForm">
+        <input type="hidden" id="vcPhone" />
+        <div class="form-row">
+          <div class="field"><label>Kupon kody *</label><input id="vcCode" required style="text-transform:uppercase;" /></div>
+          <div class="field"><label>Görnüşi</label>
+            <select id="vcType"><option value="percent">Göterim (%)</option><option value="gift">Sowgat haryt</option></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Arzanladyş (%)</label><input id="vcPct" type="number" min="0" max="100" value="20" /></div>
+          <div class="field"><label>Sowgat ady (eger sowgat bolsa)</label><input id="vcGift" placeholder="1x Kola / Somsa" /></div>
+        </div>
+        <div class="form-row-3">
+          <div class="field"><label>Min. sebet (m.)</label><input id="vcMin" type="number" min="0" value="30" /></div>
+          <div class="field"><label>Ulanym sany</label><input id="vcMaxUses" type="number" min="1" value="1" /></div>
+          <div class="field"><label>Soňky möhleti *</label><input id="vcExpires" type="date" required /></div>
+        </div>
+        <button type="submit" class="btn-primary">Şahsy kupony döret we iber ✓</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CANCEL REASON MODAL -->
+  <div class="modal-overlay" id="cancelModal">
+    <div class="modal-card" style="max-width:380px;">
+      <div class="modal-head"><h3 style="font-size:16px;font-weight:800;">❌ Ýatyrma sebäbi</h3><button type="button" class="modal-close" data-close-modal="cancelModal">✕</button></div>
+      <input type="hidden" id="cancelOrderCode" />
+      <div class="field"><label>Sebäbi saýlaň:</label>
+        <select id="cancelReasonSel">
+          <option value="Haryt gutardy">Haryt gutardy</option>
+          <option value="Kurýer häzir elýeterli däl">Kurýer häzir elýeterli däl</option>
+          <option value="Salgy eltip bermek çäginden daşda">Salgy eltip bermek çäginden daşda</option>
+          <option value="Dükan ýapylýar">Dükan ýapylýar</option>
+        </select>
+      </div>
+      <button type="button" class="btn-primary" style="background:#dc2626;" id="confirmCancelBtn">Sargydy ýatyr</button>
+    </div>
+  </div>
+
+  <!-- QUICK MESSAGE TEMPLATES MODAL -->
+  <div class="modal-overlay" id="msgModal">
+    <div class="modal-card" style="max-width:390px;">
+      <div class="modal-head"><h3 style="font-size:16px;font-weight:800;">💬 Taýýar habar şablonlary</h3><button type="button" class="modal-close" data-close-modal="msgModal">✕</button></div>
+      <div id="msgTemplatesList" style="display:flex;flex-direction:column;gap:8px;margin-top:8px;"></div>
+    </div>
+  </div>
+
+  <!-- OWNER PIN MODAL (for unlocking Cashier Mode) -->
+  <div class="modal-overlay" id="pinModal">
+    <div class="modal-card" style="max-width:340px;">
+      <div class="modal-head"><h3 style="font-size:16px;font-weight:800;">🔐 Eýe PIN kody</h3><button type="button" class="modal-close" data-close-modal="pinModal">✕</button></div>
+      <p style="font-size:12px;color:var(--sub);">Kassir tertibinden çykmak üçin dükanyň eýe PIN koduny giriň (standart: 1234).</p>
+      <div class="field"><input id="unlockPinInp" type="password" placeholder="••••" /></div>
+      <button type="button" class="btn-primary" id="confirmUnlockBtn">Aç ✓</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      const CONFIG = {
+        SUPABASE_URL: 'https://zkypuqmwovjuuplirzig.supabase.co',
+        SUPABASE_ANON_KEY: 'sb_publishable_Rhlt7E7dYumty3PpE6Sp6Q_AzkHOp-l',
+        CLIENT_SITE_URL: '',
+        currency: 'm.'
+      };
+
+      const sb = (CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY && window.supabase)
+        ? window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY)
+        : null;
+
+      const STORE_ACCOUNTS = [
+        { email:'altyn@sahermarket.tm', pass:'123456', storeId:'altyn_sac', name:'Altyn Saçak' },
+        { email:'pizza@sahermarket.tm', pass:'123456', storeId:'dost_pizza', name:'Dost Pizza & Burger' },
+        { email:'tamdyr@sahermarket.tm', pass:'123456', storeId:'tamdyr', name:'Tamdyr Çörek & Süýji' },
+        { email:'bereket@sahermarket.tm', pass:'123456', storeId:'bereket', name:'Bereket Market' }
+      ];
+
+      const K = {
+        STORES: 'sm_db_stores_v1', PRODUCTS: 'sm_db_products_v1', ORDERS: 'sm_db_orders_v1',
+        COUPONS: 'sm_db_coupons_v1', REVIEWS: 'sm_db_reviews_v1', EXPENSES: 'sm_db_expenses_v5',
+        BLACKLIST: 'sm_db_blacklist_v5', SESSION: 'sm_partner_session_v1', CLIENT_URL: 'sm_client_site_url_v1'
+      };
+
+      const loadJSON = (k, f) => { try { const r = localStorage.getItem(k); return r ? JSON.parse(r) : f; } catch { return f; } };
+      const saveJSON = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
+      const esc = s => String(s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+      const fmt = v => Number(v || 0).toLocaleString('tr-TR') + ' ' + CONFIG.currency;
+
+      let toastTimer;
+      function toast(msg) {
+        const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
+        clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+      }
+
+      function playAlarm() {
+        try {
+          const ctx = new (window.AudioContext || window.webkitAudioContext)();
+          [0, 0.22, 0.44].forEach((delay, i) => {
+            const o = ctx.createOscillator(), g = ctx.createGain();
+            o.type = 'triangle'; o.frequency.setValueAtTime(i === 2 ? 1174 : 880, ctx.currentTime + delay);
+            g.gain.setValueAtTime(0.22, ctx.currentTime + delay);
+            g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.25);
+            o.connect(g); g.connect(ctx.destination);
+            o.start(ctx.currentTime + delay); o.stop(ctx.currentTime + delay + 0.26);
+          });
+        } catch {}
+      }
+
+      function compressToBlobAndDataUrl(file, maxW, quality) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = e => {
+            const img = new Image();
+            img.onload = () => {
+              let w = img.width, h = img.height;
+              if (w > maxW) { h = Math.round(h * (maxW / w)); w = maxW; }
+              const c = document.createElement('canvas'); c.width = w; c.height = h;
+              c.getContext('2d').drawImage(img, 0, 0, w, h);
+              const dataUrl = c.toDataURL('image/jpeg', quality || 0.8);
+              c.toBlob(blob => resolve({ blob, dataUrl }), 'image/jpeg', quality || 0.8);
+            };
+            img.onerror = reject; img.src = e.target.result;
+          };
+          reader.onerror = reject; reader.readAsDataURL(file);
+        });
+      }
+
+      async function uploadImageSmart(file, maxW) {
+        const { blob, dataUrl } = await compressToBlobAndDataUrl(file, maxW || 600, 0.8);
+        if (sb && state.session) {
+          try {
+            const path = state.session.storeId + '/' + Date.now() + '.jpg';
+            const { error } = await sb.storage.from('media').upload(path, blob, { contentType: 'image/jpeg', upsert: true });
+            if (!error) {
+              const { data } = sb.storage.from('media').getPublicUrl(path);
+              if (data && data.publicUrl) return data.publicUrl;
+            }
+          } catch {}
+        }
+        return dataUrl;
+      }
+
+      const parseOpts = txt => String(txt || '').split('\n').map(l => l.trim()).filter(Boolean).map(l => { const [n, p] = l.split(':'); return { name:(n||'').trim(), price:Number((p||'0').trim())||0 }; }).filter(x => x.name);
+      const formatOpts = opts => (Array.isArray(opts) ? opts : []).map(o => o.name + ':' + (o.price || 0)).join('\n');
+
+      const STATUS_FLOW = {
+        new:       { label:'Täze sargyt',  cls:'st-new',       next:'accepted',  nextLabel:'✓ Kabul et' },
+        accepted:  { label:'Kabul edildi', cls:'st-accepted',  next:'preparing', nextLabel:'🔥 Taýýarla' },
+        preparing: { label:'Taýýarlanýar', cls:'st-preparing', next:'onway',     nextLabel:'🛵 Ýola ugrat' },
+        onway:     { label:'Kurýer ýolda', cls:'st-onway',     next:'delivered', nextLabel:'✅ Eltildi' },
+        delivered: { label:'Eltildi ✓',    cls:'st-delivered', next:null },
+        cancelled: { label:'Ýatyryldy',    cls:'st-cancelled', next:null }
+      };
+
+      const state = {
+        session: loadJSON(K.SESSION, null),
+        tab: 'orders', // 'orders' | 'pos' | 'products' | 'crm' | 'finance' | 'coupons' | 'reviews' | 'settings'
+        orderFilter: 'active',
+        reportRange: 'today',
+        cashierMode: false,
+        stores: loadJSON(K.STORES, []),
+        products: loadJSON(K.PRODUCTS, []),
+        orders: loadJSON(K.ORDERS, []),
+        coupons: loadJSON(K.COUPONS, []),
+        reviews: loadJSON(K.REVIEWS, []),
+        expenses: loadJSON(K.EXPENSES, []),
+        blacklist: loadJSON(K.BLACKLIST, []),
+        posCart: {}, // { [productId]: qty }
+        posPay: 'cash',
+        posSource: 'walkin', // 'walkin' | 'phone'
+        posSearch: '',
+        prodSearch: '',
+        hasAlarm: false,
+        newProdImg: '', editProdImg: '', setLogoImg: '', setCoverImg: ''
+      };
+
+      function currentStore() {
+        if (!state.session) return null;
+        return state.stores.find(s => s.id === state.session.storeId) || {
+          id:state.session.storeId, name:state.session.name || state.session.storeId, emoji:'🏪', isOpen:true,
+          hours:'09:00–22:00', eta:'30–45 min', minOrder:0, deliveryFee:0, freeDeliveryOver:100,
+          busyExtraMin:0, announcement:'', autoAccept:false, loyaltyEnabled:false,
+          loyaltyConfig:{ target:5, type:'percent', value:15, gift:'', days:14, minOrder:30 },
+          ownerPin:'1234', telegramBotToken:'', telegramChatId:'', deliveryZones:[]
+        };
+      }
+      const myOrders = () => state.session ? state.orders.filter(o => o.storeId === state.session.storeId) : [];
+      const myProducts = () => state.session ? state.products.filter(p => p.storeId === state.session.storeId).sort((a,b) => (a.sortOrder||0) - (b.sortOrder||0)) : [];
+      const myCoupons = () => state.session ? state.coupons.filter(c => c.storeId === state.session.storeId) : [];
+      const myReviews = () => state.session ? state.reviews.filter(r => r.storeId === state.session.storeId) : [];
+      const myExpenses = () => state.session ? state.expenses.filter(e => e.storeId === state.session.storeId) : [];
+      const myBlacklist = () => state.session ? state.blacklist.filter(b => b.storeId === state.session.storeId) : [];
+      const isBlacklisted = ph => myBlacklist().some(b => b.phone.replace(/\D/g,'') === String(ph||'').replace(/\D/g,''));
+
+      const getClientSiteUrl = () => (CONFIG.CLIENT_SITE_URL || localStorage.getItem(K.CLIENT_URL) || '').trim();
+      function openClientSite() {
+        const u = getClientSiteUrl();
+        if (u) { window.open(u, '_blank', 'noopener'); return; }
+        toast('Ilki ⚙️ Dükan bölüminden müşderi saýtynyň salgysyny ýazyň');
+        if (!state.cashierMode) { state.tab = 'settings'; render(); }
+      }
+
+      // ===== TELEGRAM PING =====
+      function notifyTelegram(order) {
+        const st = currentStore();
+        if (!st || !st.telegramBotToken || !st.telegramChatId) return;
+        const text = '🔔 TÄZE SARGYT: ' + order.code + '\n👤 ' + order.customerName + ' (' + order.customerPhone + ')\n📍 ' + order.address + '\n💰 Jemi: ' + fmt(order.total);
+        fetch('https://api.telegram.org/bot' + st.telegramBotToken + '/sendMessage', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: st.telegramChatId, text })
+        }).catch(() => {});
+      }
+
+      // ===== STOCK DEDUCTION =====
+      async function deductStockForItems(items) {
+        let changed = false;
+        for (const it of (items || [])) {
+          const p = state.products.find(x => x.id === it.id && x.storeId === state.session.storeId);
+          if (p && p.stockQty !== null && p.stockQty !== undefined && p.stockQty !== '') {
+            p.stockQty = Math.max(0, Number(p.stockQty) - Number(it.qty || 1));
+            if (p.stockQty === 0) p.inStock = false;
+            changed = true;
+            if (sb) await sb.from('products').update({ stock_qty: p.stockQty, in_stock: p.inStock }).eq('id', p.id);
+          }
+        }
+        if (changed) saveJSON(K.PRODUCTS, state.products);
+      }
+
+      // ===== LOYALTY ENGINE (Strictly Owner-Controlled & Toggleable) =====
+      async function checkLoyaltyReward(order) {
+        const st = currentStore();
+        if (!st || !st.loyaltyEnabled) return; // Disabled => never triggers!
+        const cfg = st.loyaltyConfig || { target:5, type:'percent', value:15, gift:'', days:14, minOrder:30 };
+        const target = Math.max(1, Number(cfg.target || 5));
+        const cleanPh = String(order.customerPhone || '').replace(/\D/g, '');
+        if (!cleanPh || cleanPh.length < 6) return;
+
+        const completedCount = myOrders().filter(o => o.status === 'delivered' && String(o.customerPhone || '').replace(/\D/g, '') === cleanPh).length;
+        if (completedCount > 0 && completedCount % target === 0) {
+          const expDate = new Date(Date.now() + (Number(cfg.days || 14) * 86400000)).toISOString().slice(0, 10);
+          const code = 'VIP' + cleanPh.slice(-4) + '-' + completedCount;
+          if (myCoupons().some(c => c.code === code)) return;
+
+          const newCp = {
+            id: Date.now(), storeId: st.id, code,
+            percent: cfg.type === 'percent' ? Number(cfg.value || 15) : 0,
+            rewardType: cfg.type || 'percent', giftText: cfg.gift || '',
+            minOrder: Number(cfg.minOrder || 0), customerPhone: order.customerPhone,
+            maxUses: 1, usedCount: 0, expiresAt: expDate, active: true
+          };
+          state.coupons.unshift(newCp);
+          saveJSON(K.COUPONS, state.coupons);
+          if (sb) {
+            await sb.from('coupons').insert([{
+              store_id: st.id, code: newCp.code, percent: newCp.percent, reward_type: newCp.rewardType,
+              gift_text: newCp.giftText, min_order: newCp.minOrder, customer_phone: newCp.customerPhone,
+              max_uses: 1, used_count: 0, expires_at: expDate, active: true
+            }]);
+          }
+          toast('🎁 Sadakat kupony döredildi: ' + code + ' (' + order.customerName + ')');
+        }
+      }
+
+      // ===== RECEIPT PRINT =====
+      function printReceipt(code) {
+        const o = myOrders().find(x => x.code === code); if (!o) return;
+        const s = currentStore();
+        const w = window.open('', '_blank', 'width=340,height=560');
+        if (!w) { toast('Brauzer penjire açmaga rugsat bermedi'); return; }
+        w.document.write('<html><head><title>Çek ' + o.code + '</title><style>body{font-family:monospace;font-size:12px;width:270px;margin:8px auto;color:#000}h2,p{margin:3px 0;text-align:center}.line{border-top:1px dashed #000;margin:7px 0}.row{display:flex;justify-content:space-between;margin:3px 0}</style></head><body>' +
+          '<h2>' + esc(s.name) + '</h2><p>ŞäherMarket • ' + (o.source === 'walkin' ? 'KASA/POS' : 'SARGYT') + '</p><div class="line"></div>' +
+          '<div>Kod: <b>' + esc(o.code) + '</b></div><div>Sene: ' + new Date(o.createdAt).toLocaleString('tr-TR') + '</div>' +
+          '<div>Müşderi: ' + esc(o.customerName) + '</div><div>Tel: ' + esc(o.customerPhone) + '</div><div>Salgy: ' + esc(o.address) + '</div>' +
+          (o.note ? '<div>Bellik: ' + esc(o.note) + '</div>' : '') + '<div class="line"></div>' +
+          (o.items || []).map(it => '<div class="row"><span>' + it.qty + 'x ' + esc(it.title) + '</span><span>' + (it.price * it.qty) + ' m.</span></div>').join('') +
+          '<div class="line"></div><div class="row" style="font-size:15px;font-weight:bold;"><span>JEMI:</span><span>' + o.total + ' m.</span></div>' +
+          '<p style="margin-top:8px;">Töleg: ' + (o.pay === 'card' ? 'KART' : 'NAGT') + '</p><script>window.print();</' + 'script></body></html>');
+        w.document.close();
+      }
+
+      // ===== SUPABASE SYNC + REALTIME =====
+      const mapOrderFromSb = r => ({
+        code:r.code, storeId:r.store_id, storeName:r.store_name, status:r.status, source:r.source || 'online',
+        createdAt:new Date(r.created_at).getTime(), customerName:r.customer_name, customerPhone:r.customer_phone,
+        address:r.address, note:r.note, pay:r.pay_method, deliveryTime:r.delivery_time || 'Tiz',
+        lat:r.lat, lng:r.lng, discount:Number(r.discount||0), deliveryFee:Number(r.delivery_fee||0),
+        cancelReason:r.cancel_reason || '', items:r.items || [], total:Number(r.total), count:Number(r.count)
+      });
+
+      async function syncSupabaseStore() {
+        if (!sb || !state.session) return;
+        const sid = state.session.storeId;
+        const [oR, pR, sR, cR, rR, eR, bR] = await Promise.all([
+          sb.from('orders').select('*').eq('store_id', sid).order('created_at', { ascending:false }),
+          sb.from('products').select('*').eq('store_id', sid),
+          sb.from('stores').select('*').eq('id', sid),
+          sb.from('coupons').select('*').eq('store_id', sid).order('created_at', { ascending:false }),
+          sb.from('reviews').select('*').eq('store_id', sid).order('created_at', { ascending:false }),
+          sb.from('expenses').select('*').eq('store_id', sid).order('created_at', { ascending:false }),
+          sb.from('store_blacklist').select('*').eq('store_id', sid)
+        ]);
+        if (oR.data) state.orders = oR.data.map(mapOrderFromSb);
+        if (pR.data) state.products = pR.data.map(r => ({
+          id:r.id, storeId:r.store_id, cat:r.cat||'Esasy', title:r.title, unit:r.unit||'1 sany',
+          price:Number(r.price), oldPrice:r.old_price?Number(r.old_price):null, costPrice:Number(r.cost_price||0),
+          stockQty:r.stock_qty!==null&&r.stock_qty!==undefined?Number(r.stock_qty):null,
+          barcode:r.barcode||'', sortOrder:Number(r.sort_order||0), timeStart:r.time_start||'', timeEnd:r.time_end||'',
+          isCombo:!!r.is_combo, emoji:r.emoji||'📦', deal:!!r.deal, inStock:r.in_stock!==false, desc:r.desc||'',
+          imageUrl:r.image_url||'', options:Array.isArray(r.options)?r.options:[]
+        }));
+        if (sR.data) state.stores = sR.data.map(r => ({
+          id:r.id, name:r.name, emoji:r.emoji||'🏪', desc:r.desc||'', eta:r.eta||'30–45 min', hours:r.hours||'09:00–22:00',
+          isOpen:r.is_open!==false, phone:r.phone||'', logoUrl:r.logo_url||'', coverUrl:r.cover_url||'',
+          minOrder:Number(r.min_order||0), deliveryFee:Number(r.delivery_fee||0), freeDeliveryOver:Number(r.free_delivery_over||0),
+          busyExtraMin:Number(r.busy_extra_min||0), announcement:r.announcement||'', autoAccept:!!r.auto_accept,
+          loyaltyEnabled:!!r.loyalty_enabled, loyaltyConfig:r.loyalty_config || { target:5, type:'percent', value:15, gift:'', days:14, minOrder:30 },
+          deliveryZones:Array.isArray(r.delivery_zones)?r.delivery_zones:[], telegramBotToken:r.telegram_bot_token||'',
+          telegramChatId:r.telegram_chat_id||'', ownerPin:r.owner_pin||'1234', pauseUntil:r.pause_until||null
+        }));
+        if (cR.data) state.coupons = cR.data.map(r => ({
+          id:r.id, storeId:r.store_id, code:r.code, percent:Number(r.percent||0), minOrder:Number(r.min_order||0),
+          customerPhone:r.customer_phone||'', maxUses:Number(r.max_uses||100), usedCount:Number(r.used_count||0),
+          rewardType:r.reward_type||'percent', giftText:r.gift_text||'', expiresAt:r.expires_at||'', active:r.active!==false
+        }));
+        if (rR.data) state.reviews = rR.data.map(r => ({ id:r.id, storeId:r.store_id, customerName:r.customer_name, rating:r.rating, comment:r.comment, reply:r.reply||'', createdAt:new Date(r.created_at).getTime() }));
+        if (eR.data) state.expenses = eR.data.map(r => ({ id:r.id, storeId:r.store_id, category:r.category, amount:Number(r.amount), note:r.note||'', deducted:!!r.deducted, createdAt:new Date(r.created_at).getTime() }));
+        if (bR.data) state.blacklist = bR.data.map(r => ({ id:r.id, storeId:r.store_id, phone:r.phone, reason:r.reason||'' }));
+        render();
+      }
+
+      let rtChannel = null;
+      function startRealtime() {
+        if (!sb || !state.session) return;
+        if (rtChannel) sb.removeChannel(rtChannel);
+        const sid = state.session.storeId;
+        rtChannel = sb.channel('store-v5-' + sid)
+          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders', filter: 'store_id=eq.' + sid }, async payload => {
+            const o = mapOrderFromSb(payload.new);
+            if (state.orders.some(x => x.code === o.code)) return;
+            state.orders.unshift(o);
+            await deductStockForItems(o.items);
+            notifyTelegram(o);
+
+            const st = currentStore();
+            if (st && st.autoAccept && o.status === 'new') {
+              await updateOrderStatus(o.code, 'accepted');
+              playAlarm();
+              toast('⚡ Awtomatiki kabul edildi: ' + o.code);
+              printReceipt(o.code);
+            } else {
+              state.hasAlarm = true;
+              playAlarm();
+              toast('🔔 TÄZE SARGYT GELDI: ' + o.code);
+              render();
+            }
+          })
+          .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'orders', filter: 'store_id=eq.' + sid }, () => syncSupabaseStore())
+          .subscribe();
+      }
+
+      // Live chronometer tick every 30s
+      setInterval(() => { if (state.session && state.tab === 'orders') render(); }, 30000);
+
+      async function saveStoreFields(patch) {
+        let idx = state.stores.findIndex(s => s.id === state.session.storeId);
+        if (idx === -1) { state.stores.push({ id: state.session.storeId, isOpen: true }); idx = state.stores.length - 1; }
+        state.stores[idx] = { ...state.stores[idx], ...patch };
+        saveJSON(K.STORES, state.stores);
+        if (sb) {
+          const map = {};
+          if ('isOpen' in patch) map.is_open = patch.isOpen;
+          if ('busyExtraMin' in patch) map.busy_extra_min = patch.busyExtraMin;
+          if ('autoAccept' in patch) map.auto_accept = patch.autoAccept;
+          if ('loyaltyEnabled' in patch) map.loyalty_enabled = patch.loyaltyEnabled;
+          if ('loyaltyConfig' in patch) map.loyalty_config = patch.loyaltyConfig;
+          if ('name' in patch) map.name = patch.name;
+          if ('phone' in patch) map.phone = patch.phone;
+          if ('desc' in patch) map.desc = patch.desc;
+          if ('hours' in patch) map.hours = patch.hours;
+          if ('eta' in patch) map.eta = patch.eta;
+          if ('minOrder' in patch) map.min_order = patch.minOrder;
+          if ('deliveryFee' in patch) map.delivery_fee = patch.deliveryFee;
+          if ('freeDeliveryOver' in patch) map.free_delivery_over = patch.freeDeliveryOver;
+          if ('announcement' in patch) map.announcement = patch.announcement;
+          if ('logoUrl' in patch) map.logo_url = patch.logoUrl;
+          if ('coverUrl' in patch) map.cover_url = patch.coverUrl;
+          if ('telegramBotToken' in patch) map.telegram_bot_token = patch.telegramBotToken;
+          if ('telegramChatId' in patch) map.telegram_chat_id = patch.telegramChatId;
+          if ('ownerPin' in patch) map.owner_pin = patch.ownerPin;
+          if ('deliveryZones' in patch) map.delivery_zones = patch.deliveryZones;
+          if (Object.keys(map).length) await sb.from('stores').update(map).eq('id', state.session.storeId);
+        }
+      }
+
+      async function updateOrderStatus(code, newStatus, cancelReason) {
+        const idx = state.orders.findIndex(o => o.code === code && o.storeId === state.session.storeId);
+        if (idx === -1) return;
+        state.orders[idx].status = newStatus;
+        if (cancelReason) state.orders[idx].cancelReason = cancelReason;
+        state.hasAlarm = false;
+        saveJSON(K.ORDERS, state.orders);
+        if (sb) {
+          const upd = { status: newStatus };
+          if (cancelReason) upd.cancel_reason = cancelReason;
+          await sb.from('orders').update(upd).eq('code', code).eq('store_id', state.session.storeId);
+        }
+        if (newStatus === 'delivered') await checkLoyaltyReward(state.orders[idx]);
+        toast('Sargyt ýagdaýy täzelendi ✓');
+        render();
+      }
+
+      async function removeOrderItem(code, itemIdx) {
+        const o = myOrders().find(x => x.code === code); if (!o) return;
+        if (o.items.length <= 1) { toast('Iň soňky harydy aýryp bolmaýar — sargydy ýatyryň'); return; }
+        if (!confirm('Bu harydy sargytdan aýryp, jemi bahany täzelemek isleýärsiňizmi?')) return;
+        o.items.splice(itemIdx, 1);
+        o.count = o.items.reduce((s, it) => s + Number(it.qty || 1), 0);
+        const sub = o.items.reduce((s, it) => s + Number(it.price) * Number(it.qty || 1), 0);
+        o.total = Math.max(0, sub - (o.discount || 0) + (o.deliveryFee || 0));
+        saveJSON(K.ORDERS, state.orders);
+        if (sb) await sb.from('orders').update({ items: o.items, total: o.total, count: o.count }).eq('code', code).eq('store_id', state.session.storeId);
+        toast('Haryt aýryldy we jemi täzelendi ✓'); render();
+      }
+
+      // ===== RENDER SECTIONS =====
+      function renderLogin() {
+        return '<div class="login-wrap"><div class="login-card"><div class="logo-badge">Ş</div><h1>Dükan Paneli ULTRA</h1><p>Sargyt, Kasa (POS), Stok, VIP Müşderiler we Maliýe ulgamy.</p>' +
+          '<form id="loginForm"><div class="field"><label>E-poçta</label><input type="email" id="lEmail" required placeholder="altyn@sahermarket.tm" /></div>' +
+          '<div class="field"><label>Parol</label><input type="password" id="lPass" required placeholder="••••••" /></div>' +
+          '<div class="err-box" id="loginErr"></div><button type="submit" class="btn-primary">Giriş et →</button></form>' +
+          '<div style="margin-top:15px;border-top:1px solid var(--border);padding-top:11px;"><div style="font-size:11px;color:var(--sub);">Synag hasaplary (parol: 123456):</div><div class="demo-list">' +
+          STORE_ACCOUNTS.map(a => '<button type="button" class="demo-acc" data-fill-email="' + a.email + '" data-fill-pass="' + a.pass + '"><strong>' + esc(a.name) + '</strong><span>' + a.email + '</span></button>').join('') +
+          '</div></div></div></div>';
+      }
+
+      function renderOrdersTab(orders, activeOrders) {
+        const st = currentStore();
+        let list = state.orderFilter === 'active' ? activeOrders : (state.orderFilter === 'done' ? orders.filter(o => ['delivered','cancelled'].includes(o.status)) : orders);
+        return '<div class="toggle-row">' +
+            '<div><strong style="font-size:13px;">⚡ Awtomatiki Kabul we Çalt Çek</strong><div style="font-size:11px;color:var(--sub);">Açyk bolsa täze sargytlar awtomatiki kabul edilip, çek penjiresi açylar</div></div>' +
+            '<label class="switch"><input type="checkbox" id="autoAcceptChk"' + (st.autoAccept ? ' checked' : '') + ' /><span class="slider"></span></label>' +
+          '</div>' +
+          '<div class="filter-row">' +
+            '<button type="button" class="f-chip' + (state.orderFilter === 'active' ? ' active' : '') + '" data-of="active">Işjeň (' + activeOrders.length + ')</button>' +
+            '<button type="button" class="f-chip' + (state.orderFilter === 'done' ? ' active' : '') + '" data-of="done">Tamamlanan</button>' +
+            '<button type="button" class="f-chip' + (state.orderFilter === 'all' ? ' active' : '') + '" data-of="all">Ählisi (' + orders.length + ')</button>' +
+          '</div>' +
+          (list.length ? '<div class="orders-list">' + list.map(o => {
+            const sm = STATUS_FLOW[o.status || 'new'] || STATUS_FLOW.new;
+            const mins = Math.max(0, Math.floor((Date.now() - o.createdAt) / 60000));
+            const isAct = !['delivered','cancelled'].includes(o.status);
+            const tCls = mins >= 30 ? 'late' : (mins >= 15 ? 'warn' : '');
+            const mapUrl = (o.lat && o.lng) ? ('https://maps.google.com/?q=' + o.lat + ',' + o.lng) : '';
+            const bl = isBlacklisted(o.customerPhone);
+            return '<div class="order-card' + (o.status === 'new' ? ' is-new' : '') + '">' +
+              '<div class="oc-top">' +
+                '<div><strong style="font-size:14.5px;">' + esc(o.code) + ' • ' + fmt(o.total) + '</strong> ' + (o.source === 'walkin' ? '<span class="oc-badge" style="background:rgba(139,92,246,.22);color:#c4b5fd;">KASA/POS</span>' : (o.source === 'phone' ? '<span class="oc-badge" style="background:rgba(59,130,246,.2);color:#93c5fd;">TEL</span>' : '')) +
+                '<div style="font-size:11px;color:var(--sub);">' + new Date(o.createdAt).toLocaleString('tr-TR', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) + ' • ' + (o.pay === 'card' ? '💳 Kart' : '💵 Nagt') + '</div></div>' +
+                '<div style="display:flex;align-items:center;gap:6px;">' + (isAct ? '<span class="timer-pill ' + tCls + '">⏱ ' + mins + ' min</span>' : '') + '<span class="oc-badge ' + sm.cls + '">' + sm.label + '</span></div>' +
+              '</div>' +
+              '<div class="oc-cust"><div>👤 <strong>' + esc(o.customerName) + '</strong> • 📞 ' + esc(o.customerPhone) + (bl ? ' <span class="bl-tag">⚠️ Gara sanawda</span>' : '') + '</div>' +
+                '<div>📍 ' + esc(o.address) + (mapUrl ? ' <a href="' + mapUrl + '" target="_blank" style="color:#34d399;font-weight:800;">[Karta ↗]</a>' : '') + '</div>' +
+                (o.note ? '<div style="color:#fcd34d;">📝 ' + esc(o.note) + '</div>' : '') + '</div>' +
+              '<div>' + (o.items || []).map((it, idx) => '<div class="oc-item-row"><span><strong>' + it.qty + '×</strong> ' + esc(it.title) + '</span><span style="display:flex;align-items:center;gap:7px;"><strong>' + fmt(it.price * it.qty) + '</strong>' + (isAct ? '<button type="button" class="rm-item-btn" data-rm-code="' + esc(o.code) + '" data-rm-idx="' + idx + '" title="Harydy aýyr">✕</button>' : '') + '</span></div>').join('') + '</div>' +
+              '<div class="oc-actions">' +
+                (sm.next ? '<button type="button" class="act-btn next" data-next-code="' + esc(o.code) + '" data-next-st="' + sm.next + '">' + sm.nextLabel + '</button>' : '') +
+                '<button type="button" class="act-btn soft" data-print="' + esc(o.code) + '">🖨️ Çek</button>' +
+                '<button type="button" class="act-btn soft" data-msg-code="' + esc(o.code) + '">💬 Habar</button>' +
+                '<button type="button" class="act-btn soft" data-courier="' + esc(o.code) + '">🛵 Kurýer</button>' +
+                (isAct ? '<button type="button" class="act-btn cancel" data-open-cancel="' + esc(o.code) + '">Ýatyr</button>' : '') +
+              '</div></div>';
+          }).join('') + '</div>' : '<div class="empty">📭 Bu bölümde sargyt ýok.</div>');
+      }
+
+      function renderPosTab(products) {
+        const q = state.posSearch.trim().toLowerCase();
+        const filtered = products.filter(p => !q || (p.title + ' ' + (p.barcode || '')).toLowerCase().includes(q));
+        const cartEntries = Object.entries(state.posCart).map(([pid, qty]) => {
+          const p = products.find(x => x.id === pid);
+          return p && qty > 0 ? { p, qty } : null;
+        }).filter(Boolean);
+        const posTotal = cartEntries.reduce((s, x) => s + x.p.price * x.qty, 0);
+
+        return '<div class="pos-layout">' +
+          '<div class="panel-box">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px;flex-wrap:wrap;"><h3 style="font-size:15px;font-weight:800;">🧾 Kasa / POS — Haryt saýlaň</h3><input id="posSearchInp" class="url-small" style="max-width:210px;margin:0;" placeholder="Ady ýa-da barkod gözle..." value="' + esc(state.posSearch) + '" /></div>' +
+            '<div class="pos-grid">' + filtered.map(p => {
+              const oos = p.inStock === false || (p.stockQty !== null && p.stockQty <= 0);
+              return '<button type="button" class="pos-item' + (oos ? ' oos' : '') + '" data-pos-add="' + esc(p.id) + '">' +
+                '<div class="pos-thumb">' + (p.imageUrl ? '<img src="' + esc(p.imageUrl) + '" />' : (p.emoji || '📦')) + '</div>' +
+                '<strong style="font-size:12px;line-height:1.2;">' + esc(p.title) + '</strong>' +
+                '<div style="display:flex;justify-content:space-between;font-size:11.5px;color:#34d399;font-weight:800;"><span>' + fmt(p.price) + '</span>' + (p.stockQty !== null ? '<span style="color:var(--sub);">Stok:' + p.stockQty + '</span>' : '') + '</div>' +
+              '</button>';
+            }).join('') + '</div>' +
+          '</div>' +
+          '<form id="posForm" class="panel-box">' +
+            '<h3 style="font-size:15px;font-weight:800;margin-bottom:8px;">🛒 El bilen sargyt / Kasa</h3>' +
+            (cartEntries.length ? cartEntries.map(x =>
+              '<div class="pos-cart-row"><div style="min-width:0;flex:1;"><strong style="font-size:12.5px;">' + esc(x.p.title) + '</strong><div style="font-size:11px;color:var(--sub);">' + fmt(x.p.price * x.qty) + '</div></div>' +
+              '<div class="qty-mini"><button type="button" data-pos-dec="' + esc(x.p.id) + '">−</button><span>' + x.qty + '</span><button type="button" data-pos-add="' + esc(x.p.id) + '">+</button></div></div>'
+            ).join('') : '<div style="font-size:12px;color:var(--sub);padding:12px 0;">Çepden harytlara basyp sebede goşuň.</div>') +
+            '<div style="display:flex;justify-content:space-between;font-size:17px;font-weight:800;margin-top:10px;"><span>Jemi:</span><span style="color:#34d399;">' + fmt(posTotal) + '</span></div>' +
+            '<div class="form-row" style="margin-top:10px;">' +
+              '<button type="button" class="pill-btn' + (state.posSource === 'walkin' ? ' open' : '') + '" data-pos-src="walkin">🏪 Dükandan (Kasa)</button>' +
+              '<button type="button" class="pill-btn' + (state.posSource === 'phone' ? ' open' : '') + '" data-pos-src="phone">📞 Telefondan sargyt</button>' +
+            '</div>' +
+            '<div class="form-row" style="margin-top:8px;">' +
+              '<button type="button" class="pill-btn' + (state.posPay === 'cash' ? ' auto-on' : '') + '" data-pos-pay="cash">💵 Nagt</button>' +
+              '<button type="button" class="pill-btn' + (state.posPay === 'card' ? ' auto-on' : '') + '" data-pos-pay="card">💳 Kart</button>' +
+            '</div>' +
+            '<div class="field"><label>Müşderi ady</label><input id="posName" placeholder="Kasa müşderisi" /></div>' +
+            '<div class="field"><label>Telefon (islege görä)</label><input id="posPhone" placeholder="65 12 34 56" /></div>' +
+            (state.posSource === 'phone' ? '<div class="field"><label>Eltip bermek salgysy</label><input id="posAddr" placeholder="Köçe, jaý, öý" /></div>' : '') +
+            '<button type="submit" class="btn-primary">✅ Sargydy bellige al we Çek çykar</button>' +
+          '</form>' +
+        '</div>';
+      }
+
+      function renderProductsTab(products) {
+        const q = state.prodSearch.trim().toLowerCase();
+        const filtered = products.filter(p => !q || (p.title + ' ' + (p.barcode || '')).toLowerCase().includes(q));
+        const lowStockCount = products.filter(p => p.stockQty !== null && p.stockQty <= 3).length;
+
+        return (lowStockCount ? '<div class="panel-box" style="background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.4);padding:10px 14px;">⚠️ <strong>Kritiki stok duýduryşy:</strong> ' + lowStockCount + ' sany harydyň stogy 3 ýa-da ondan az!</div>' : '') +
+          '<div class="bulk-bar">' +
+            '<div><strong style="font-size:12.5px;">⚡ Köpçülikleýin baha & CSV Ýükleme</strong><div style="font-size:11px;color:var(--sub);">Ähli bahalary üýtgediň ýa-da Excel/CSV faýldan haryt goşuň</div></div>' +
+            '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">' +
+              '<button type="button" class="bulk-btn up" data-bulk="10">+10%</button><button type="button" class="bulk-btn up" data-bulk="5">+5%</button>' +
+              '<button type="button" class="bulk-btn down" data-bulk="-5">-5%</button><button type="button" class="bulk-btn down" data-bulk="-10">-10%</button>' +
+              '<label class="file-lbl" style="background:#3b82f6;">📥 CSV Ýükle<input type="file" accept=".csv" id="csvImportFile" /></label>' +
+            '</div>' +
+          '</div>' +
+          '<form id="addProdForm" class="panel-box"><h3 style="font-size:14.5px;font-weight:800;">➕ Täze haryt / kombo menýu goş</h3>' +
+            '<div class="form-row-3"><div class="field"><label>Ady *</label><input id="pTitle" required placeholder="Täze somsa" /></div><div class="field"><label>Satuw bahasy (m.) *</label><input id="pPrice" type="number" min="1" step="0.5" required /></div><div class="field"><label>Algy / Maliýet (m.)</label><input id="pCost" type="number" min="0" step="0.5" placeholder="Peýda üçin" /></div></div>' +
+            '<div class="form-row-4"><div class="field"><label>Stok sany</label><input id="pStock" type="number" min="0" placeholder="Boş=çäksiz" /></div><div class="field"><label>Ölçegi</label><input id="pUnit" placeholder="1 sany" /></div><div class="field"><label>Barkod</label><input id="pBarcode" placeholder="869..." /></div><div class="field"><label>Emoji</label><input id="pEmoji" value="📦" /></div></div>' +
+            '<div class="field"><label>Surat</label><div class="upload-box"><div class="upload-preview" id="newProdPrev">' + (state.newProdImg ? '<img src="' + esc(state.newProdImg) + '" />' : '📷') + '</div><div style="flex:1;"><label class="file-lbl">📷 Surat saýla<input type="file" accept="image/*" id="pImgFile" /></label><input class="url-small" id="pImgUrl" placeholder="URL..." /></div></div></div>' +
+            '<button type="submit" class="btn-primary">Harydy goş ✓</button></form>' +
+          '<div style="margin-bottom:10px;"><input id="prodSearchInp" class="url-small" style="margin:0;padding:10px 12px;font-size:13px;" placeholder="🔍 Haryt ady ýa-da barkod bilen gözle..." value="' + esc(state.prodSearch) + '" /></div>' +
+          '<div class="prod-manage-grid">' + filtered.map(p => {
+            const stBadge = p.stockQty === null ? '<span class="stock-pill stock-ok">Çäksiz</span>' : (p.stockQty <= 0 ? '<span class="stock-pill stock-out">Stok: 0</span>' : (p.stockQty <= 3 ? '<span class="stock-pill stock-low">⚠️ Stok: ' + p.stockQty + '</span>' : '<span class="stock-pill stock-ok">Stok: ' + p.stockQty + '</span>'));
+            const profit = p.costPrice ? (' • Peýda: ' + fmt(p.price - p.costPrice)) : '';
+            return '<div class="pm-card"><div class="pm-top"><div class="pm-thumb">' + (p.imageUrl ? '<img src="' + esc(p.imageUrl) + '" />' : (p.emoji || '📦')) + '</div>' +
+              '<div style="flex:1;min-width:0;"><div style="font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + esc(p.title) + '</div>' +
+              '<div style="font-size:11px;color:var(--sub);">' + esc(p.unit) + ' • <strong style="color:#fff;">' + fmt(p.price) + '</strong>' + profit + '</div>' + stBadge + '</div></div>' +
+              '<div class="pm-actions">' +
+                '<button type="button" class="pm-btn ' + (p.inStock !== false ? 'in' : 'out') + '" data-stock="' + esc(p.id) + '">' + (p.inStock !== false ? 'Bar ✓' : 'Ýok') + '</button>' +
+                '<button type="button" class="pm-btn edit" data-edit="' + esc(p.id) + '">✏️ Üýtget</button>' +
+                '<button type="button" class="pm-btn copy" data-dup="' + esc(p.id) + '">📋 Çoğalt</button>' +
+                '<button type="button" class="pm-btn del" data-del="' + esc(p.id) + '">🗑️ Poz</button>' +
+              '</div></div>';
+          }).join('') + '</div>';
+      }
+
+      function renderCrmTab(orders) {
+        const st = currentStore();
+        const cfg = st.loyaltyConfig || { target:5, type:'percent', value:15, gift:'', days:14, minOrder:30 };
+
+        // Aggregate customers by normalized phone
+        const map = {};
+        orders.forEach(o => {
+          const ph = String(o.customerPhone || '').trim();
+          const key = ph.replace(/\D/g, '') || ('name_' + o.customerName);
+          if (!map[key]) map[key] = { name: o.customerName, phone: ph || '—', count: 0, delivered: 0, spent: 0, lastAt: 0 };
+          map[key].count++;
+          if (o.status === 'delivered') map[key].delivered++;
+          if (o.status !== 'cancelled') map[key].spent += Number(o.total || 0);
+          if (o.createdAt > map[key].lastAt) { map[key].lastAt = o.createdAt; map[key].name = o.customerName; }
+        });
+        const customers = Object.values(map).sort((a, b) => b.spent - a.spent);
+
+        return '<form id="loyaltyForm" class="panel-box">' +
+            '<div class="toggle-row" style="margin-bottom:10px;">' +
+              '<div><strong style="font-size:14px;">🎁 Müşderi Sadakat Ulgamy</strong><div style="font-size:11.5px;color:var(--sub);">Öçürilgi bolsa asla işlemez. Açsaňyz, saýlan sanyňyza ýeten müşderä awtomatiki şahsy kupon dörediler.</div></div>' +
+              '<label class="switch"><input type="checkbox" id="loyEnabled"' + (st.loyaltyEnabled ? ' checked' : '') + ' /><span class="slider"></span></label>' +
+            '</div>' +
+            '<div class="form-row-4">' +
+              '<div class="field"><label>Näçenji sargytda?</label><input id="loyTarget" type="number" min="1" value="' + (cfg.target || 5) + '" /></div>' +
+              '<div class="field"><label>Sylag görnüşi</label><select id="loyType"><option value="percent"' + (cfg.type === 'percent' ? ' selected' : '') + '>Göterim (%)</option><option value="gift"' + (cfg.type === 'gift' ? ' selected' : '') + '>Sowgat haryt</option></select></div>' +
+              '<div class="field"><label>Göterim (%) ýa-da Baha</label><input id="loyVal" type="number" min="1" max="100" value="' + (cfg.value || 15) + '" /></div>' +
+              '<div class="field"><label>Möhleti (gün)</label><input id="loyDays" type="number" min="1" value="' + (cfg.days || 14) + '" /></div>' +
+            '</div>' +
+            '<div class="form-row"><div class="field"><label>Sowgat ady (sowgat saýlansa)</label><input id="loyGift" value="' + esc(cfg.gift || '') + '" placeholder="Mysal: 1x Mugt Somsa" /></div><div class="field"><label>Min. sebet (m.)</label><input id="loyMin" type="number" min="0" value="' + (cfg.minOrder || 30) + '" /></div></div>' +
+            '<button type="submit" class="btn-primary" style="height:40px;">Sadakat sazlamasyny ýatda sakla ✓</button>' +
+          '</form>' +
+          '<h3 style="font-size:15px;font-weight:800;margin:12px 2px 9px;">👑 Müşderi Rehberi we VIP Sanawy (' + customers.length + ')</h3>' +
+          (customers.length ? customers.map((c, idx) => {
+            const bl = isBlacklisted(c.phone);
+            const isVip = idx < 3 || c.delivered >= (cfg.target || 5);
+            return '<div class="crm-card">' +
+              '<div><strong style="font-size:14px;">' + esc(c.name) + '</strong> ' + (isVip ? '<span class="vip-tag">👑 VIP</span> ' : '') + (bl ? '<span class="bl-tag">🚫 Petiklenen</span>' : '') +
+              '<div style="font-size:11.5px;color:var(--sub);margin-top:2px;">📞 ' + esc(c.phone) + ' • ' + c.count + ' sargyt (' + c.delivered + ' eltildi) • <strong style="color:#34d399;">' + fmt(c.spent) + '</strong></div></div>' +
+              '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
+                '<button type="button" class="pill-btn open" data-vip-cp-phone="' + esc(c.phone) + '" data-vip-cp-name="' + esc(c.name) + '">🎟️ Şahsy kupon</button>' +
+                '<button type="button" class="pill-btn ' + (bl ? 'open' : 'closed') + '" data-toggle-bl="' + esc(c.phone) + '">' + (bl ? '✓ Petigi aç' : '🚫 Gara sanaw') + '</button>' +
+              '</div></div>';
+          }).join('') : '<div class="empty">Entek müşderi ýazgysy ýok.</div>');
+      }
+
+      function renderFinanceTab(orders, products, expenses) {
+        const now = Date.now();
+        const ms = state.reportRange === 'today' ? 86400000 : (state.reportRange === 'week' ? 7 * 86400000 : 30 * 86400000);
+        const periodOrders = orders.filter(o => (now - o.createdAt) <= ms);
+        const valid = periodOrders.filter(o => o.status !== 'cancelled');
+        const cancelled = periodOrders.filter(o => o.status === 'cancelled');
+
+        const cashTotal = valid.filter(o => o.pay !== 'card').reduce((s, o) => s + Number(o.total || 0), 0);
+        const cardTotal = valid.filter(o => o.pay === 'card').reduce((s, o) => s + Number(o.total || 0), 0);
+        const grossRev = cashTotal + cardTotal;
+        const totalDisc = valid.reduce((s, o) => s + Number(o.discount || 0), 0);
+
+        // Net profit based on product cost_price
+        const prodById = Object.fromEntries(products.map(p => [p.id, p]));
+        let totalCost = 0;
+        valid.forEach(o => (o.items || []).forEach(it => {
+          const p = prodById[it.id];
+          if (p && p.costPrice) totalCost += Number(p.costPrice) * Number(it.qty || 1);
+        }));
+
+        const periodExp = expenses.filter(e => (now - e.createdAt) <= ms);
+        const deductedExp = periodExp.filter(e => e.deducted).reduce((s, e) => s + Number(e.amount || 0), 0);
+        const pendingExp = periodExp.filter(e => !e.deducted).reduce((s, e) => s + Number(e.amount || 0), 0);
+        const netCashInRegister = cashTotal - deductedExp;
+        const netProfit = grossRev - totalCost - deductedExp;
+
+        // 7-day chart
+        const days = [];
+        for (let i = 6; i >= 0; i--) {
+          const d = new Date(now - i * 86400000);
+          const key = d.toISOString().slice(0, 10);
+          const sum = orders.filter(o => o.status !== 'cancelled' && new Date(o.createdAt).toISOString().slice(0, 10) === key).reduce((a, o) => a + Number(o.total || 0), 0);
+          days.push({ lbl: d.getDate() + '.' + (d.getMonth() + 1), sum });
+        }
+        const maxSum = Math.max(1, ...days.map(x => x.sum));
+
+        return '<div class="filter-row">' +
+            '<button type="button" class="f-chip' + (state.reportRange === 'today' ? ' active' : '') + '" data-rr="today">Şu gün (Z-Hasabat)</button>' +
+            '<button type="button" class="f-chip' + (state.reportRange === 'week' ? ' active' : '') + '" data-rr="week">Soňky 7 gün</button>' +
+            '<button type="button" class="f-chip' + (state.reportRange === 'month' ? ' active' : '') + '" data-rr="month">Soňky 30 gün</button>' +
+            '<button type="button" class="f-chip" id="exportCsvBtn" style="margin-left:auto;background:rgba(16,185,129,.2);color:#34d399;">📥 Excel / CSV</button>' +
+          '</div>' +
+          '<div class="z-grid">' +
+            '<div class="panel-box" style="margin:0;">' +
+              '<h3 style="font-size:15px;font-weight:800;margin-bottom:8px;">🧾 Gün Soňy Kasa (Z-Hasabat)</h3>' +
+              '<div class="z-row"><span>💵 Nagt satuw</span><strong>' + fmt(cashTotal) + '</strong></div>' +
+              '<div class="z-row"><span>💳 Kart (terminal)</span><strong>' + fmt(cardTotal) + '</strong></div>' +
+              '<div class="z-row"><span>🎟️ Kupon / Arzanladyş</span><span style="color:#fcd34d;">-' + fmt(totalDisc) + '</span></div>' +
+              '<div class="z-row"><span>❌ Ýatyrylan sargytlar</span><span style="color:#fca5a5;">' + cancelled.length + ' sany</span></div>' +
+              '<div class="z-row"><span>💸 Kassadan aýrylan çykdajy</span><span style="color:#fca5a5;">-' + fmt(deductedExp) + '</span></div>' +
+              '<div class="z-row" style="font-size:15px;font-weight:800;color:#34d399;"><span>🏦 Kassada galan ARASSA NAGT</span><span>' + fmt(netCashInRegister) + '</span></div>' +
+              '<div class="z-row" style="font-size:14px;font-weight:800;color:#60a5fa;"><span>📈 Takmynan Arassa Peýda</span><span>' + fmt(netProfit) + '</span></div>' +
+            '</div>' +
+            '<form id="addExpenseForm" class="panel-box" style="margin:0;">' +
+              '<h3 style="font-size:15px;font-weight:800;margin-bottom:6px;">💸 Gündelik Çykdajy & Kurýer Hasaby</h3>' +
+              '<div class="form-row"><div class="field"><label>Kategoriýa</label><select id="exCat"><option>Kurýer tölegi</option><option>Gaplama / Paket</option><option>Üpjün ediji / Haryt</option><option>Beýleki</option></select></div>' +
+              '<div class="field"><label>Mukdary (m.) *</label><input id="exAmt" type="number" min="1" step="0.5" required placeholder="50" /></div></div>' +
+              '<div class="field"><label>Bellik</label><input id="exNote" placeholder="Mysal: Kurýer Merdan günlik" /></div>' +
+              '<button type="submit" class="btn-primary" style="height:40px;">Çykdajy goş</button>' +
+              (pendingExp > 0 ? '<button type="button" class="btn-primary" id="deductAllExpBtn" style="height:38px;margin-top:8px;background:linear-gradient(135deg,#f97316,#dc2626);">📉 Ähli garaşýan çykdajylary (' + fmt(pendingExp) + ') kassadan aýyr</button>' : '') +
+            '</form>' +
+          '</div>' +
+          '<div class="panel-box"><h3 style="font-size:14.5px;font-weight:800;margin-bottom:8px;">📋 Çykdajy Sanawy (' + periodExp.length + ')</h3>' +
+            (periodExp.length ? periodExp.map(e =>
+              '<div class="z-row" style="align-items:center;gap:8px;"><div><strong>' + esc(e.category) + '</strong> <small style="color:var(--sub);">' + esc(e.note) + '</small></div>' +
+              '<div style="display:flex;align-items:center;gap:7px;"><strong style="color:#fca5a5;">-' + fmt(e.amount) + '</strong>' +
+              '<button type="button" class="pill-btn ' + (e.deducted ? 'open' : 'busy') + '" data-toggle-exp="' + e.id + '">' + (e.deducted ? '✓ Kassadan aýryldy' : '📉 Kassadan aýyr') + '</button>' +
+              '<button type="button" class="rm-item-btn" data-del-exp="' + e.id + '">✕</button></div></div>'
+            ).join('') : '<div style="font-size:12px;color:var(--sub);">Entek çykdajy ýazylmady.</div>') +
+          '</div>' +
+          '<div class="panel-box"><h3 style="font-size:14.5px;font-weight:800;">📊 Soňky 7 günüň girdejisi</h3><div class="chart-bars">' +
+            days.map(d => '<div class="bar-col"><span class="bar-val">' + (d.sum ? d.sum : '') + '</span><div class="bar-fill" style="height:' + Math.max(4, Math.round((d.sum / maxSum) * 85)) + 'px;"></div><span class="bar-lbl">' + d.lbl + '</span></div>').join('') +
+          '</div></div>';
+      }
+
+      function renderCouponsTab(coupons) {
+        return '<form id="addCouponForm" class="panel-box"><h3 style="font-size:15px;font-weight:800;">🎟️ Täze Dükan Kupony</h3>' +
+            '<div class="form-row-4"><div class="field"><label>Kod *</label><input id="cpCode" required placeholder="ALTYN15" style="text-transform:uppercase;" /></div>' +
+            '<div class="field"><label>Arzanladyş (%)</label><input id="cpPct" type="number" min="1" max="90" value="15" required /></div>' +
+            '<div class="field"><label>Min. sebet (m.)</label><input id="cpMin" type="number" min="0" value="40" /></div>' +
+            '<div class="field"><label>Soňky möhleti</label><input id="cpExp" type="date" /></div></div>' +
+            '<button type="submit" class="btn-primary">Kupon goş ✓</button></form>' +
+          (coupons.length ? coupons.map(c =>
+            '<div class="panel-box" style="display:flex;align-items:center;justify-content:space-between;padding:12px 15px;flex-wrap:wrap;gap:8px;">' +
+              '<div><strong style="font-size:15px;color:#34d399;">' + esc(c.code) + ' ' + (c.rewardType === 'gift' ? ('🎁 ' + esc(c.giftText)) : ('(-' + c.percent + '%)')) + '</strong>' +
+              '<div style="font-size:11.5px;color:var(--sub);">' + (c.customerPhone ? ('👤 Diňe: ' + esc(c.customerPhone) + ' • ') : '🌐 Ähli müşderiler • ') + 'Min: ' + fmt(c.minOrder) + (c.expiresAt ? (' • Möhlet: ' + c.expiresAt) : '') + ' • Ulanym: ' + (c.usedCount || 0) + '/' + (c.maxUses || 100) + '</div></div>' +
+              '<button type="button" class="pm-btn del" style="padding:0 12px;" data-del-cp="' + c.id + '">Poz</button>' +
+            '</div>'
+          ).join('') : '<div class="empty">Entek kupon ýok.</div>');
+      }
+
+      function renderSettingsTab(store) {
+        const siteUrl = getClientSiteUrl() || 'https://yagshymamedovm-prog.github.io/Bazar/';
+        const qrImgUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=' + encodeURIComponent(siteUrl);
+        const zonesTxt = (store.deliveryZones || []).map(z => z.name + ':' + z.fee).join('\n');
+
+        return '<form id="settingsForm" class="panel-box"><h3 style="font-size:15.5px;font-weight:800;">⚙️ Dükan, Logo, Duyuru we Eltip Bermek</h3>' +
+            '<div class="form-row">' +
+              '<div class="field"><label>Logo</label><div class="upload-box"><div class="upload-preview" id="sLogoPrev">' + (state.setLogoImg ? '<img src="' + esc(state.setLogoImg) + '" />' : (store.emoji || '🏪')) + '</div><div style="flex:1;"><label class="file-lbl">📷 Logo<input type="file" accept="image/*" id="sLogoFile" /></label><input class="url-small" id="sLogoUrl" placeholder="URL..." /></div></div></div>' +
+              '<div class="field"><label>Kapak Suraty (Banner)</label><div class="upload-box"><div class="upload-preview wide" id="sCoverPrev">' + (state.setCoverImg ? '<img src="' + esc(state.setCoverImg) + '" />' : '🖼️') + '</div><div style="flex:1;"><label class="file-lbl">🖼️ Banner<input type="file" accept="image/*" id="sCoverFile" /></label><input class="url-small" id="sCoverUrl" placeholder="URL..." /></div></div></div>' +
+            '</div>' +
+            '<div class="form-row"><div class="field"><label>Dükanyň ady *</label><input id="sName" required value="' + esc(store.name) + '" /></div><div class="field"><label>Telefon</label><input id="sPhone" value="' + esc(store.phone || '') + '" /></div></div>' +
+            '<div class="field"><label>📢 Dükan içi bildiriş (müşderi ekranynda görner)</label><input id="sAnn" value="' + esc(store.announcement || '') + '" placeholder="Mysal: Şu wagt gyzgyn tamdyr somsa çykdy!" /></div>' +
+            '<div class="form-row-3"><div class="field"><label>Min. sebet (m.)</label><input id="sMin" type="number" min="0" value="' + (store.minOrder || 0) + '" /></div><div class="field"><label>Eltip bermek (m.)</label><input id="sDel" type="number" min="0" value="' + (store.deliveryFee || 0) + '" /></div><div class="field"><label>Mugt çäk (m.+)</label><input id="sFree" type="number" min="0" value="' + (store.freeDeliveryOver || 0) + '" /></div></div>' +
+            '<div class="field"><label>🗺️ Etrapça / Bölge boýunça eltip bermek bahasy (her setirde: Etrapça:Baha)</label><textarea id="sZones" placeholder="Parahat 1-4:5&#10;Mir 7:10&#10;Gurtly:15">' + esc(zonesTxt) + '</textarea></div>' +
+            '<div class="form-row-3"><div class="field"><label>✈️ Telegram Bot Token</label><input id="sTgToken" value="' + esc(store.telegramBotToken || '') + '" placeholder="123456:ABC..." /></div><div class="field"><label>✈️ Telegram Chat ID</label><input id="sTgChat" value="' + esc(store.telegramChatId || '') + '" placeholder="987654321" /></div><div class="field"><label>🔐 Eýe PIN (Kassir tertibi üçin)</label><input id="sPin" value="' + esc(store.ownerPin || '1234') + '" /></div></div>' +
+            '<div class="field"><label>🌐 Müşderi saýtynyň salgysy</label><input id="sClientUrl" type="url" value="' + esc(getClientSiteUrl()) + '" placeholder="https://yagshymamedovm-prog.github.io/Bazar/" /></div>' +
+            '<button type="submit" class="btn-primary">Ähli sazlamalary ýatda sakla ✓</button>' +
+          '</form>' +
+          '<div class="panel-box" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">' +
+            '<img src="' + qrImgUrl + '" alt="QR" style="width:120px;height:120px;border-radius:14px;background:#fff;padding:6px;" />' +
+            '<div style="flex:1;min-width:200px;"><h3 style="font-size:15px;font-weight:800;">📱 QR Kodly Dükan Karty</h3><p style="font-size:12px;color:var(--sub);margin:4px 0 10px;">Bu QR kody çykaryp witrina, stol üstüne ýa-da paketlere ýelmeň — müşderiler göni saýtyňyzy açsyn.</p><a class="pill-btn open" href="' + qrImgUrl + '" target="_blank" download="dukan-qr.png">⬇️ QR Kody ýükle</a></div>' +
+          '</div>';
+      }
+
+      function renderDashboard() {
+        const store = currentStore();
+        const orders = myOrders(), products = myProducts(), coupons = myCoupons(), reviews = myReviews(), expenses = myExpenses();
+        const newCount = orders.filter(o => o.status === 'new').length;
+        const activeOrders = orders.filter(o => !['delivered','cancelled'].includes(o.status));
+        const todayRev = orders.filter(o => o.status !== 'cancelled' && (Date.now() - o.createdAt) <= 86400000).reduce((a, o) => a + Number(o.total || 0), 0);
+        const lowStock = products.filter(p => p.stockQty !== null && p.stockQty <= 3).length;
+
+        let content = '';
+        if (state.tab === 'orders') content = renderOrdersTab(orders, activeOrders);
+        else if (state.tab === 'pos') content = renderPosTab(products);
+        else if (state.tab === 'products') content = renderProductsTab(products);
+        else if (state.tab === 'crm') content = renderCrmTab(orders);
+        else if (state.tab === 'finance') content = renderFinanceTab(orders, products, expenses);
+        else if (state.tab === 'coupons') content = renderCouponsTab(coupons);
+        else if (state.tab === 'reviews') content = reviews.length ? reviews.map(r =>
+          '<div class="panel-box"><div style="display:flex;justify-content:space-between;"><strong>' + esc(r.customerName) + '</strong><span>' + '⭐'.repeat(r.rating) + '</span></div><p style="font-size:12.5px;margin:6px 0;">' + esc(r.comment || 'Teswir ýok') + '</p>' +
+          (r.reply ? '<div style="background:rgba(16,185,129,.12);padding:8px;border-radius:9px;font-size:12px;color:#6ee7b7;">Jogap: ' + esc(r.reply) + '</div>' : '<div style="display:flex;gap:7px;"><input id="rep_' + r.id + '" class="url-small" style="margin:0;" placeholder="Jogap ýazyň..." /><button type="button" class="pm-btn in" style="padding:0 14px;" data-reply-id="' + r.id + '">Iber</button></div>') + '</div>'
+        ).join('') : '<div class="empty">⭐ Entek teswir ýok.</div>';
+        else if (state.tab === 'settings') content = renderSettingsTab(store);
+
+        return '<div class="dash-shell">' +
+          '<div class="alarm-banner' + (state.hasAlarm ? ' show' : '') + '"><span>🔔 TÄZE SARGYT GELDI!</span><button type="button" id="dismissAlarmBtn" style="border:none;background:#fff;color:#0b1120;padding:5px 12px;border-radius:9px;font-weight:800;cursor:pointer;">Gördüm ✓</button></div>' +
+          '<div class="dash-top">' +
+            '<div class="store-id-wrap"><div class="store-avatar">' + (store.logoUrl ? '<img src="' + esc(store.logoUrl) + '" />' : (store.emoji || '🏪')) + '</div><div><strong style="font-size:17px;">' + esc(store.name) + '</strong><div style="font-size:11px;color:var(--sub);">' + (state.cashierMode ? '🔒 Kassir tertibi (çäklendirilen)' : esc(state.session.email) + ' • ● Realtime') + '</div></div></div>' +
+            '<div class="top-actions">' +
+              '<button type="button" class="pill-btn ' + (store.isOpen !== false ? 'open' : 'closed') + '" id="toggleOpenBtn">' + (store.isOpen !== false ? '● Açyk' : '● Ýapyk') + '</button>' +
+              '<button type="button" class="pill-btn ' + (store.busyExtraMin ? 'busy' : '') + '" id="toggleBusyBtn">🔥 ' + (store.busyExtraMin ? ('+' + store.busyExtraMin + ' min') : 'Ýükli däl') + '</button>' +
+              '<button type="button" class="pill-btn ' + (state.cashierMode ? 'cashier' : '') + '" id="toggleCashierBtn">' + (state.cashierMode ? '🔓 Eýe aç' : '🔒 Kassir') + '</button>' +
+              '<button type="button" class="pill-btn" id="viewSiteBtn">🌐 Saýt</button>' +
+              (!state.cashierMode ? '<button type="button" class="pill-btn" id="logoutBtn">Çykyş</button>' : '') +
+            '</div>' +
+          '</div>' +
+          '<div class="stats-grid">' +
+            '<div class="stat-card"><div class="stat-lbl">Täze sargyt</div><div class="stat-val orange">' + newCount + '</div></div>' +
+            '<div class="stat-card"><div class="stat-lbl">Şu günki girdeji</div><div class="stat-val green">' + (state.cashierMode ? '•••' : fmt(todayRev)) + '</div></div>' +
+            '<div class="stat-card"><div class="stat-lbl">Işjeň sargyt</div><div class="stat-val blue">' + activeOrders.length + '</div></div>' +
+            '<div class="stat-card"><div class="stat-lbl">Kritiki stok</div><div class="stat-val' + (lowStock ? ' orange' : '') + '">' + lowStock + '</div></div>' +
+          '</div>' +
+          '<div class="tabs">' +
+            '<button type="button" class="tab-btn' + (state.tab === 'orders' ? ' active' : '') + '" data-tab="orders">📦 Sargytlar <span class="pill-cnt">' + activeOrders.length + '</span></button>' +
+            '<button type="button" class="tab-btn' + (state.tab === 'pos' ? ' active' : '') + '" data-tab="pos">🧾 Kasa / POS</button>' +
+            (!state.cashierMode ? '<button type="button" class="tab-btn' + (state.tab === 'products' ? ' active' : '') + '" data-tab="products">🛍️ Harytlar (' + products.length + ')</button>' : '') +
+            (!state.cashierMode ? '<button type="button" class="tab-btn' + (state.tab === 'crm' ? ' active' : '') + '" data-tab="crm">👥 Müşderiler & VIP</button>' : '') +
+            (!state.cashierMode ? '<button type="button" class="tab-btn' + (state.tab === 'finance' ? ' active' : '') + '" data-tab="finance">💰 Kasa & Z-Hasabat</button>' : '') +
+            (!state.cashierMode ? '<button type="button" class="tab-btn' + (state.tab === 'coupons' ? ' active' : '') + '" data-tab="coupons">🎟️ Kuponlar</button>' : '') +
+            (!state.cashierMode ? '<button type="button" class="tab-btn' + (state.tab === 'reviews' ? ' active' : '') + '" data-tab="reviews">⭐ Teswir</button>' : '') +
+            (!state.cashierMode ? '<button type="button" class="tab-btn' + (state.tab === 'settings' ? ' active' : '') + '" data-tab="settings">⚙️ Dükan & QR</button>' : '') +
+          '</div>' + content +
+        '</div>';
+      }
+
+      function render() { document.getElementById('root').innerHTML = state.session ? renderDashboard() : renderLogin(); }
+
+      // ===== MODAL LISTENERS =====
+      document.querySelectorAll('[data-close-modal]').forEach(b => b.addEventListener('click', () => document.getElementById(b.getAttribute('data-close-modal')).classList.remove('open')));
+
+      document.getElementById('eImgFile').addEventListener('change', async e => { if (e.target.files[0]) { state.editProdImg = await uploadImageSmart(e.target.files[0], 560); document.getElementById('eImgPrev').innerHTML = '<img src="' + state.editProdImg + '" />'; } });
+      document.getElementById('editProdForm').addEventListener('submit', async e => {
+        e.preventDefault();
+        const pid = document.getElementById('eId').value;
+        const idx = state.products.findIndex(x => x.id === pid && x.storeId === state.session.storeId); if (idx === -1) return;
+        const price = Number(document.getElementById('ePrice').value);
+        const oldP = document.getElementById('eOldPrice').value ? Number(document.getElementById('eOldPrice').value) : null;
+        const stVal = document.getElementById('eStock').value;
+        const stockQty = stVal === '' ? null : Number(stVal);
+        const upd = {
+          ...state.products[idx], title:document.getElementById('eTitle').value.trim(), price, oldPrice:oldP, deal:!!(oldP && oldP > price),
+          costPrice:Number(document.getElementById('eCost').value || 0), stockQty, inStock: stockQty === null ? state.products[idx].inStock : stockQty > 0,
+          unit:document.getElementById('eUnit').value.trim(), barcode:document.getElementById('eBarcode').value.trim(),
+          timeStart:document.getElementById('eTimeStart').value, timeEnd:document.getElementById('eTimeEnd').value,
+          emoji:document.getElementById('eEmoji').value.trim() || '📦', options:parseOpts(document.getElementById('eOpts').value),
+          imageUrl:state.editProdImg || document.getElementById('eImgUrl').value.trim()
+        };
+        state.products[idx] = upd; saveJSON(K.PRODUCTS, state.products);
+        if (sb) await sb.from('products').update({ title:upd.title, price:upd.price, old_price:upd.oldPrice, cost_price:upd.costPrice, stock_qty:upd.stockQty, in_stock:upd.inStock, deal:upd.deal, unit:upd.unit, barcode:upd.barcode, time_start:upd.timeStart, time_end:upd.timeEnd, emoji:upd.emoji, options:upd.options, image_url:upd.imageUrl }).eq('id', pid);
+        document.getElementById('editModal').classList.remove('open'); toast('Haryt täzelendi ✓'); render();
+      });
+
+      document.getElementById('vipCouponForm').addEventListener('submit', async e => {
+        e.preventDefault();
+        const ph = document.getElementById('vcPhone').value;
+        const c = {
+          id: Date.now(), storeId: state.session.storeId, code: document.getElementById('vcCode').value.trim().toUpperCase(),
+          rewardType: document.getElementById('vcType').value, percent: Number(document.getElementById('vcPct').value || 0),
+          giftText: document.getElementById('vcGift').value.trim(), minOrder: Number(document.getElementById('vcMin').value || 0),
+          maxUses: Number(document.getElementById('vcMaxUses').value || 1), usedCount: 0,
+          expiresAt: document.getElementById('vcExpires').value, customerPhone: ph, active: true
+        };
+        state.coupons.unshift(c); saveJSON(K.COUPONS, state.coupons);
+        if (sb) await sb.from('coupons').insert([{ store_id:c.storeId, code:c.code, reward_type:c.rewardType, percent:c.percent, gift_text:c.giftText, min_order:c.minOrder, max_uses:c.maxUses, used_count:0, expires_at:c.expiresAt, customer_phone:c.customerPhone, active:true }]);
+        document.getElementById('vipCouponModal').classList.remove('open');
+        toast('Şahsy kupon döredildi: ' + c.code + ' 🎟️');
+        const msg = '🎁 ' + currentStore().name + ' size şahsy kupon berdi!\nKod: ' + c.code + '\n' + (c.rewardType === 'gift' ? ('Sowgat: ' + c.giftText) : ('Arzanladyş: -' + c.percent + '%')) + '\nMöhleti: ' + c.expiresAt;
+        if (ph && ph !== '—' && confirm('Bu kupony WhatsApp arkaly müşderä ibermek isleýärsiňizmi?')) window.open('https://wa.me/' + ph.replace(/\D/g,'') + '?text=' + encodeURIComponent(msg), '_blank');
+        render();
+      });
+
+      document.getElementById('confirmCancelBtn').addEventListener('click', async () => {
+        await updateOrderStatus(document.getElementById('cancelOrderCode').value, 'cancelled', document.getElementById('cancelReasonSel').value);
+        document.getElementById('cancelModal').classList.remove('open');
+      });
+
+      document.getElementById('confirmUnlockBtn').addEventListener('click', () => {
+        const pin = document.getElementById('unlockPinInp').value.trim();
+        if (pin === (currentStore().ownerPin || '1234')) {
+          state.cashierMode = false; document.getElementById('pinModal').classList.remove('open');
+          document.getElementById('unlockPinInp').value = ''; toast('Eýe tertibi açyldy 🔓'); render();
+        } else toast('Nädogry PIN!');
+      });
+
+      // ===== ROOT EVENTS =====
+      document.getElementById('root').addEventListener('input', e => {
+        if (e.target.id === 'posSearchInp') { state.posSearch = e.target.value; render(); document.getElementById('posSearchInp')?.focus(); }
+        else if (e.target.id === 'prodSearchInp') { state.prodSearch = e.target.value; render(); document.getElementById('prodSearchInp')?.focus(); }
+      });
+
+      document.getElementById('root').addEventListener('change', async e => {
+        if (e.target.id === 'autoAcceptChk') {
+          await saveStoreFields({ autoAccept: e.target.checked });
+          toast(e.target.checked ? '⚡ Awtomatiki kabul AÇYLDY' : 'Awtomatiki kabul öçürildi');
+        } else if (e.target.id === 'pImgFile' && e.target.files[0]) {
+          state.newProdImg = await uploadImageSmart(e.target.files[0], 560);
+          document.getElementById('newProdPrev').innerHTML = '<img src="' + state.newProdImg + '" />';
+        } else if (e.target.id === 'sLogoFile' && e.target.files[0]) {
+          state.setLogoImg = await uploadImageSmart(e.target.files[0], 400);
+          document.getElementById('sLogoPrev').innerHTML = '<img src="' + state.setLogoImg + '" />';
+        } else if (e.target.id === 'sCoverFile' && e.target.files[0]) {
+          state.setCoverImg = await uploadImageSmart(e.target.files[0], 850);
+          document.getElementById('sCoverPrev').innerHTML = '<img src="' + state.setCoverImg + '" />';
+        } else if (e.target.id === 'csvImportFile' && e.target.files[0]) {
+          const text = await e.target.files[0].text();
+          const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+          let added = 0;
+          for (let i = 1; i < lines.length; i++) {
+            const cols = lines[i].split(/[,;]/).map(x => x.replace(/^"|"$/g, '').trim());
+            if (!cols[0] || !Number(cols[1])) continue;
+            const p = { id:'p_' + Date.now() + '_' + i, storeId:state.session.storeId, title:cols[0], price:Number(cols[1]), unit:cols[2]||'1 sany', costPrice:Number(cols[3]||0), stockQty:cols[4]?Number(cols[4]):null, emoji:'📦', cat:'CSV', inStock:true };
+            state.products.unshift(p); added++;
+            if (sb) await sb.from('products').insert([{ id:p.id, store_id:p.storeId, title:p.title, price:p.price, unit:p.unit, cost_price:p.costPrice, stock_qty:p.stockQty, emoji:p.emoji, cat:p.cat, in_stock:true }]);
+          }
+          saveJSON(K.PRODUCTS, state.products); toast('📥 CSV-den ' + added + ' haryt goşuldy ✓'); render();
+        }
+      });
+
+      document.getElementById('root').addEventListener('submit', async e => {
+        e.preventDefault();
+        if (e.target.id === 'loginForm') {
+          const clean = document.getElementById('lEmail').value.trim().toLowerCase(), pass = document.getElementById('lPass').value;
+          if (sb) {
+            const { error } = await sb.auth.signInWithPassword({ email: clean, password: pass });
+            if (error) { const b = document.getElementById('loginErr'); b.textContent = 'E-poçta ýa-da parol nädogry.'; b.classList.add('show'); return; }
+            const { data: st } = await sb.from('stores').select('*').eq('owner_email', clean).single();
+            if (!st) { const b = document.getElementById('loginErr'); b.textContent = 'Bu hasaba bagly dükan tapylmady.'; b.classList.add('show'); return; }
+            state.session = { email: clean, storeId: st.id, name: st.name }; saveJSON(K.SESSION, state.session);
+            await syncSupabaseStore(); startRealtime(); render(); return;
+          }
+          const acc = STORE_ACCOUNTS.find(a => a.email === clean && a.pass === pass);
+          if (!acc) { const b = document.getElementById('loginErr'); b.textContent = 'E-poçta ýa-da parol nädogry.'; b.classList.add('show'); return; }
+          state.session = { email: acc.email, storeId: acc.storeId, name: acc.name }; saveJSON(K.SESSION, state.session); render();
+        } else if (e.target.id === 'posForm') {
+          const entries = Object.entries(state.posCart).map(([pid, qty]) => { const p = myProducts().find(x => x.id === pid); return p && qty > 0 ? { id:p.id, title:p.title, unit:p.unit, price:p.price, qty } : null; }).filter(Boolean);
+          if (!entries.length) { toast('Ilki haryt saýlaň'); return; }
+          const total = entries.reduce((s, it) => s + it.price * it.qty, 0);
+          const count = entries.reduce((s, it) => s + it.qty, 0);
+          const o = {
+            code: 'POS-' + Math.floor(100000 + Math.random() * 900000), storeId: state.session.storeId, storeName: currentStore().name,
+            status: state.posSource === 'walkin' ? 'delivered' : 'accepted', source: state.posSource, createdAt: Date.now(),
+            customerName: document.getElementById('posName').value.trim() || 'Kasa müşderisi',
+            customerPhone: document.getElementById('posPhone').value.trim() || '—',
+            address: state.posSource === 'walkin' ? 'Dükandan elden' : (document.getElementById('posAddr')?.value.trim() || 'Telefon sargyt'),
+            note: '', pay: state.posPay, deliveryTime: 'Tiz', items: entries, total, count
+          };
+          state.orders.unshift(o); saveJSON(K.ORDERS, state.orders);
+          if (sb) await sb.from('orders').insert([{ code:o.code, store_id:o.storeId, store_name:o.storeName, status:o.status, source:o.source, customer_name:o.customerName, customer_phone:o.customerPhone, address:o.address, pay_method:o.pay, items:o.items, total:o.total, count:o.count }]);
+          await deductStockForItems(o.items);
+          if (o.status === 'delivered') await checkLoyaltyReward(o);
+          state.posCart = {}; toast('POS sargydy ýazyldy: ' + o.code + ' ✓'); render(); printReceipt(o.code);
+        } else if (e.target.id === 'addProdForm') {
+          const stVal = document.getElementById('pStock').value;
+          const p = {
+            id:'p_' + Date.now(), storeId:state.session.storeId, title:document.getElementById('pTitle').value.trim(),
+            price:Number(document.getElementById('pPrice').value), costPrice:Number(document.getElementById('pCost').value||0),
+            stockQty:stVal === '' ? null : Number(stVal), unit:document.getElementById('pUnit').value.trim()||'1 sany',
+            barcode:document.getElementById('pBarcode').value.trim(), emoji:document.getElementById('pEmoji').value.trim()||'📦',
+            imageUrl:state.newProdImg || document.getElementById('pImgUrl').value.trim(), cat:'Esasy', inStock:true
+          };
+          state.products.unshift(p); saveJSON(K.PRODUCTS, state.products);
+          if (sb) await sb.from('products').insert([{ id:p.id, store_id:p.storeId, title:p.title, price:p.price, cost_price:p.costPrice, stock_qty:p.stockQty, unit:p.unit, barcode:p.barcode, emoji:p.emoji, image_url:p.imageUrl, cat:p.cat, in_stock:true }]);
+          state.newProdImg = ''; toast('Haryt goşuldy ✓'); render();
+        } else if (e.target.id === 'loyaltyForm') {
+          const enabled = document.getElementById('loyEnabled').checked;
+          const cfg = {
+            target: Number(document.getElementById('loyTarget').value || 5), type: document.getElementById('loyType').value,
+            value: Number(document.getElementById('loyVal').value || 15), days: Number(document.getElementById('loyDays').value || 14),
+            gift: document.getElementById('loyGift').value.trim(), minOrder: Number(document.getElementById('loyMin').value || 0)
+          };
+          await saveStoreFields({ loyaltyEnabled: enabled, loyaltyConfig: cfg });
+          toast(enabled ? '🎁 Sadakat ulgamy AÇYK we ýatda saklandy ✓' : 'Sadakat ulgamy öçürildi'); render();
+        } else if (e.target.id === 'addExpenseForm') {
+          const ex = { id:Date.now(), storeId:state.session.storeId, category:document.getElementById('exCat').value, amount:Number(document.getElementById('exAmt').value), note:document.getElementById('exNote').value.trim(), deducted:false, createdAt:Date.now() };
+          state.expenses.unshift(ex); saveJSON(K.EXPENSES, state.expenses);
+          if (sb) await sb.from('expenses').insert([{ store_id:ex.storeId, category:ex.category, amount:ex.amount, note:ex.note, deducted:false }]);
+          toast('Çykdajy goşuldy ✓'); render();
+        } else if (e.target.id === 'addCouponForm') {
+          const c = { id:Date.now(), storeId:state.session.storeId, code:document.getElementById('cpCode').value.trim().toUpperCase(), percent:Number(document.getElementById('cpPct').value), minOrder:Number(document.getElementById('cpMin').value||0), expiresAt:document.getElementById('cpExp').value||'', maxUses:100, usedCount:0, rewardType:'percent', active:true };
+          state.coupons.unshift(c); saveJSON(K.COUPONS, state.coupons);
+          if (sb) await sb.from('coupons').insert([{ store_id:c.storeId, code:c.code, percent:c.percent, min_order:c.minOrder, expires_at:c.expiresAt||null, max_uses:100, active:true }]);
+          toast('Kupon goşuldy ✓'); render();
+        } else if (e.target.id === 'settingsForm') {
+          const zones = document.getElementById('sZones').value.split('\n').map(l => l.trim()).filter(Boolean).map(l => { const [n, f] = l.split(':'); return { name:(n||'').trim(), fee:Number((f||'0').trim())||0 }; });
+          localStorage.setItem(K.CLIENT_URL, document.getElementById('sClientUrl').value.trim());
+          await saveStoreFields({
+            name:document.getElementById('sName').value.trim(), phone:document.getElementById('sPhone').value.trim(),
+            announcement:document.getElementById('sAnn').value.trim(), minOrder:Number(document.getElementById('sMin').value||0),
+            deliveryFee:Number(document.getElementById('sDel').value||0), freeDeliveryOver:Number(document.getElementById('sFree').value||0),
+            deliveryZones:zones, telegramBotToken:document.getElementById('sTgToken').value.trim(),
+            telegramChatId:document.getElementById('sTgChat').value.trim(), ownerPin:document.getElementById('sPin').value.trim()||'1234',
+            logoUrl:state.setLogoImg || document.getElementById('sLogoUrl').value.trim(),
+            coverUrl:state.setCoverImg || document.getElementById('sCoverUrl').value.trim()
+          });
+          toast('Ähli sazlamalar saklandy ✓'); render();
+        }
+      });
+
+      document.getElementById('root').addEventListener('click', async e => {
+        const el = s => e.target.closest(s);
+        if (el('[data-fill-email]')) { document.getElementById('lEmail').value = el('[data-fill-email]').getAttribute('data-fill-email'); document.getElementById('lPass').value = el('[data-fill-pass]').getAttribute('data-fill-pass'); return; }
+        if (el('#dismissAlarmBtn')) { state.hasAlarm = false; render(); return; }
+        if (el('#viewSiteBtn')) { openClientSite(); return; }
+        if (el('#logoutBtn')) { state.session = null; localStorage.removeItem(K.SESSION); if (sb) sb.auth.signOut(); render(); return; }
+        if (el('#toggleOpenBtn')) { await saveStoreFields({ isOpen: currentStore().isOpen === false }); render(); return; }
+        if (el('#toggleBusyBtn')) { const cur = currentStore().busyExtraMin || 0; const next = cur === 0 ? 15 : (cur === 15 ? 30 : 0); await saveStoreFields({ busyExtraMin: next }); toast(next ? ('🔥 Ýükli tertip: +' + next + ' min') : 'Adaty tertip'); render(); return; }
+        if (el('#toggleCashierBtn')) {
+          if (state.cashierMode) { document.getElementById('pinModal').classList.add('open'); }
+          else { state.cashierMode = true; if (!['orders','pos'].includes(state.tab)) state.tab = 'orders'; toast('🔒 Kassir tertibi açyldy'); render(); }
+          return;
+        }
+        if (el('[data-tab]')) {
+          state.tab = el('[data-tab]').getAttribute('data-tab');
+          if (state.tab === 'settings') { const st = currentStore(); state.setLogoImg = st.logoUrl || ''; state.setCoverImg = st.coverUrl || ''; }
+          render(); return;
+        }
+        if (el('[data-of]')) { state.orderFilter = el('[data-of]').getAttribute('data-of'); render(); return; }
+        if (el('[data-rr]')) { state.reportRange = el('[data-rr]').getAttribute('data-rr'); render(); return; }
+        if (el('[data-next-code]')) { const b = el('[data-next-code]'); updateOrderStatus(b.getAttribute('data-next-code'), b.getAttribute('data-next-st')); return; }
+        if (el('[data-rm-code]')) { const b = el('[data-rm-code]'); removeOrderItem(b.getAttribute('data-rm-code'), +b.getAttribute('data-rm-idx')); return; }
+        if (el('[data-print]')) { printReceipt(el('[data-print]').getAttribute('data-print')); return; }
+        if (el('[data-courier]')) {
+          const o = myOrders().find(x => x.code === el('[data-courier]').getAttribute('data-courier')); if (!o) return;
+          const mapUrl = (o.lat && o.lng) ? ('https://maps.google.com/?q=' + o.lat + ',' + o.lng) : ('https://maps.google.com/?q=' + encodeURIComponent(o.address));
+          const msg = '🛵 KURÝER: ' + o.code + '\nDükan: ' + currentStore().name + '\nMüşderi: ' + o.customerName + ' (' + o.customerPhone + ')\nSalgy: ' + o.address + '\nKarta: ' + mapUrl + '\nJemi: ' + fmt(o.total);
+          window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank'); return;
+        }
+        if (el('[data-msg-code]')) {
+          const o = myOrders().find(x => x.code === el('[data-msg-code]').getAttribute('data-msg-code')); if (!o) return;
+          const ph = String(o.customerPhone || '').replace(/\D/g, '');
+          const tpls = [
+            'Salam ' + o.customerName + '! Sargydyňyz (' + o.code + ') kabul edildi we taýýarlanýar.',
+            'Sargydyňyz kurýere berildi, takmynan 10–15 minutda ýeter 🛵',
+            'Salam! Salgyňyzy takyklamak üçin ýazýarys, gapy kody ýa-da takyk ýeriňizi ýazyp bilersiňizmi?'
+          ];
+          document.getElementById('msgTemplatesList').innerHTML = tpls.map(txt =>
+            '<a class="pill-btn open" style="justify-content:flex-start;padding:10px 12px;line-height:1.35;" target="_blank" href="https://wa.me/' + ph + '?text=' + encodeURIComponent(txt) + '">💬 ' + esc(txt) + '</a>'
+          ).join('');
+          document.getElementById('msgModal').classList.add('open'); return;
+        }
+        if (el('[data-open-cancel]')) { document.getElementById('cancelOrderCode').value = el('[data-open-cancel]').getAttribute('data-open-cancel'); document.getElementById('cancelModal').classList.add('open'); return; }
+        // POS actions
+        if (el('[data-pos-add]')) { const pid = el('[data-pos-add]').getAttribute('data-pos-add'); const p = myProducts().find(x => x.id === pid); if (!p || p.inStock === false) return; state.posCart[pid] = (state.posCart[pid] || 0) + 1; render(); return; }
+        if (el('[data-pos-dec]')) { const pid = el('[data-pos-dec]').getAttribute('data-pos-dec'); state.posCart[pid] = Math.max(0, (state.posCart[pid] || 0) - 1); if (!state.posCart[pid]) delete state.posCart[pid]; render(); return; }
+        if (el('[data-pos-src]')) { state.posSource = el('[data-pos-src]').getAttribute('data-pos-src'); render(); return; }
+        if (el('[data-pos-pay]')) { state.posPay = el('[data-pos-pay]').getAttribute('data-pos-pay'); render(); return; }
+        // Products actions
+        if (el('[data-bulk]')) {
+          const pct = Number(el('[data-bulk]').getAttribute('data-bulk'));
+          if (!confirm('Ähli harytlaryň bahasyny ' + (pct > 0 ? '+' : '') + pct + '% üýtgetmek isleýärsiňizmi?')) return;
+          for (const p of myProducts()) { p.price = Math.max(1, Math.round(p.price * (1 + pct / 100))); if (sb) await sb.from('products').update({ price: p.price }).eq('id', p.id); }
+          saveJSON(K.PRODUCTS, state.products); toast('Ähli bahalar täzelendi ✓'); render(); return;
+        }
+        if (el('[data-stock]')) { const pid = el('[data-stock]').getAttribute('data-stock'); const p = myProducts().find(x => x.id === pid); if (p) { p.inStock = p.inStock === false; saveJSON(K.PRODUCTS, state.products); if (sb) await sb.from('products').update({ in_stock: p.inStock }).eq('id', pid); render(); } return; }
+        if (el('[data-dup]')) {
+          const orig = myProducts().find(x => x.id === el('[data-dup]').getAttribute('data-dup')); if (!orig) return;
+          const copy = { ...orig, id: 'p_' + Date.now(), title: orig.title + ' (Nusga)' };
+          state.products.unshift(copy); saveJSON(K.PRODUCTS, state.products);
+          if (sb) await sb.from('products').insert([{ id:copy.id, store_id:copy.storeId, title:copy.title, price:copy.price, cost_price:copy.costPrice, stock_qty:copy.stockQty, unit:copy.unit, emoji:copy.emoji, image_url:copy.imageUrl, cat:copy.cat, in_stock:true }]);
+          toast('Haryt göçürildi 📋'); render(); return;
+        }
+        if (el('[data-edit]')) {
+          const p = myProducts().find(x => x.id === el('[data-edit]').getAttribute('data-edit')); if (!p) return;
+          state.editProdImg = p.imageUrl || '';
+          document.getElementById('eId').value = p.id; document.getElementById('eTitle').value = p.title;
+          document.getElementById('ePrice').value = p.price; document.getElementById('eOldPrice').value = p.oldPrice || '';
+          document.getElementById('eCost').value = p.costPrice || ''; document.getElementById('eStock').value = p.stockQty !== null && p.stockQty !== undefined ? p.stockQty : '';
+          document.getElementById('eUnit').value = p.unit || ''; document.getElementById('eBarcode').value = p.barcode || '';
+          document.getElementById('eTimeStart').value = p.timeStart || ''; document.getElementById('eTimeEnd').value = p.timeEnd || '';
+          document.getElementById('eEmoji').value = p.emoji || '📦'; document.getElementById('eOpts').value = formatOpts(p.options);
+          document.getElementById('eImgPrev').innerHTML = state.editProdImg ? '<img src="' + esc(state.editProdImg) + '" />' : (p.emoji || '📦');
+          document.getElementById('editModal').classList.add('open'); return;
+        }
+        if (el('[data-del]')) {
+          const pid = el('[data-del]').getAttribute('data-del');
+          if (confirm('Bu harydy pozmak isleýärsiňizmi?')) { state.products = state.products.filter(x => x.id !== pid); saveJSON(K.PRODUCTS, state.products); if (sb) await sb.from('products').delete().eq('id', pid); toast('Pozuldy 🗑️'); render(); }
+          return;
+        }
+        // CRM & Blacklist
+        if (el('[data-vip-cp-phone]')) {
+          const b = el('[data-vip-cp-phone]');
+          const ph = b.getAttribute('data-vip-cp-phone'), nm = b.getAttribute('data-vip-cp-name');
+          document.getElementById('vcPhone').value = ph;
+          document.getElementById('vipTargetInfo').textContent = 'Müşderi: ' + nm + ' (' + ph + ')';
+          document.getElementById('vcCode').value = 'VIP' + String(ph).replace(/\D/g,'').slice(-4) + Math.floor(10 + Math.random()*89);
+          document.getElementById('vcExpires').value = new Date(Date.now() + 14 * 86400000).toISOString().slice(0, 10);
+          document.getElementById('vipCouponModal').classList.add('open'); return;
+        }
+        if (el('[data-toggle-bl]')) {
+          const ph = el('[data-toggle-bl]').getAttribute('data-toggle-bl');
+          if (isBlacklisted(ph)) {
+            state.blacklist = state.blacklist.filter(b => !(b.storeId === state.session.storeId && b.phone.replace(/\D/g,'') === ph.replace(/\D/g,'')));
+            if (sb) await sb.from('store_blacklist').delete().eq('store_id', state.session.storeId).eq('phone', ph);
+            toast('Petik aýryldy ✓');
+          } else {
+            state.blacklist.push({ id:Date.now(), storeId:state.session.storeId, phone:ph, reason:'Dükan petikledi' });
+            if (sb) await sb.from('store_blacklist').insert([{ store_id:state.session.storeId, phone:ph, reason:'Dükan petikledi' }]);
+            toast('Belgi gara sanawa goşuldy 🚫');
+          }
+          saveJSON(K.BLACKLIST, state.blacklist); render(); return;
+        }
+        // Expenses deduct / delete
+        if (el('[data-toggle-exp]')) {
+          const id = el('[data-toggle-exp]').getAttribute('data-toggle-exp');
+          const ex = state.expenses.find(x => String(x.id) === String(id));
+          if (ex) {
+            ex.deducted = !ex.deducted; saveJSON(K.EXPENSES, state.expenses);
+            if (sb) await sb.from('expenses').update({ deducted: ex.deducted }).eq('id', ex.id);
+            toast(ex.deducted ? '📉 Kassadan aýryldy ✓' : 'Kassa gaýtaryldy'); render();
+          }
+          return;
+        }
+        if (el('#deductAllExpBtn')) {
+          for (const ex of myExpenses().filter(x => !x.deducted)) {
+            ex.deducted = true;
+            if (sb) await sb.from('expenses').update({ deducted: true }).eq('id', ex.id);
+          }
+          saveJSON(K.EXPENSES, state.expenses); toast('📉 Ähli çykdajylar kassadan aýryldy ✓'); render(); return;
+        }
+        if (el('[data-del-exp]')) {
+          const id = el('[data-del-exp]').getAttribute('data-del-exp');
+          state.expenses = state.expenses.filter(x => String(x.id) !== String(id)); saveJSON(K.EXPENSES, state.expenses);
+          if (sb) await sb.from('expenses').delete().eq('id', id); render(); return;
+        }
+        if (el('#exportCsvBtn')) {
+          const rows = [['Kod','Çeşme','Sene','Müşderi','Telefon','Ýagdaý','Töleg','Jemi (m.)']];
+          myOrders().forEach(o => rows.push([o.code, o.source||'online', new Date(o.createdAt).toLocaleString('tr-TR'), o.customerName, o.customerPhone, o.status, o.pay, o.total]));
+          const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\ufeff' + rows.map(r => r.map(v => '"' + String(v||'').replace(/"/g,'""') + '"').join(',')).join('\n')], { type:'text/csv;charset=utf-8;' }));
+          a.download = 'hasabat_' + state.session.storeId + '.csv'; a.click(); toast('Excel/CSV ýüklendi ✓'); return;
+        }
+        if (el('[data-del-cp]')) {
+          const cid = el('[data-del-cp]').getAttribute('data-del-cp');
+          state.coupons = state.coupons.filter(x => String(x.id) !== String(cid)); saveJSON(K.COUPONS, state.coupons);
+          if (sb) await sb.from('coupons').delete().eq('id', cid); toast('Kupon pozuldy'); render(); return;
+        }
+        if (el('[data-reply-id]')) {
+          const rid = el('[data-reply-id]').getAttribute('data-reply-id');
+          const txt = document.getElementById('rep_' + rid).value.trim(); if (!txt) return;
+          const r = state.reviews.find(x => String(x.id) === String(rid));
+          if (r) { r.reply = txt; saveJSON(K.REVIEWS, state.reviews); if (sb) await sb.from('reviews').update({ reply: txt }).eq('id', rid); toast('Jogap iberildi ✓'); render(); }
+        }
+      });
+
+      render();
+      if (state.session) { syncSupabaseStore(); startRealtime(); }
+    })();
+  </script>
+</body>
+</html>
