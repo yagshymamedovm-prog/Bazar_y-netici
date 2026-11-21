@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="tk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1120" />
+  <title>ŞäherMarket Partner — Dükan Dolandyryş Paneli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0b1120; --surface:#111827; --card:#182235; --soft:#1f2c44;
+      --ink:#f8fafc; --sub:#94a3b8; --border:rgba(255,255,255,.09);
+      --accent:#10b981; --accent2:#059669; --orange:#f97316; --blue:#3b82f6; --danger:#ef4444;
+      --grad:linear-gradient(135deg,#10b981,#0d9488);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    html,body{min-height:100%;background:radial-gradient(circle at top right,#064e3b 0%,#0b1120 45%);
+      color:var(--ink);font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,sans-serif;font-size:14px;line-height:1.4}
+    button,input,textarea,select{font-family:inherit;color:inherit}
+
+    /* ===== LOGIN SCREEN ===== */
+    .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+    .login-card{width:100%;max-width:410px;background:rgba(24,34,53,.88);backdrop-filter:blur(20px);
+      border:1px solid var(--border);border-radius:26px;padding:28px 24px;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+    .logo-badge{width:52px;height:52px;border-radius:16px;background:var(--grad);display:flex;align-items:center;
+      justify-content:center;font-size:24px;font-weight:800;margin-bottom:14px;box-shadow:0 10px 24px rgba(16,185,129,.35)}
+    .login-card h1{font-size:22px;font-weight:800;letter-spacing:-.5px}
+    .login-card p{font-size:12.5px;color:var(--sub);margin-top:5px}
+    .field{margin-top:14px}
+    .field label{display:block;font-size:12px;font-weight:700;color:#cbd5e1;margin-bottom:6px}
+    .field input,.field select,.field textarea{width:100%;background:rgba(11,17,32,.7);border:1.5px solid var(--border);
+      border-radius:13px;padding:12px 13px;font-size:14px;font-weight:600;color:#fff;outline:none;transition:.15s}
+    .field input:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(16,185,129,.15)}
+    .btn-primary{width:100%;height:48px;margin-top:18px;border:none;border-radius:14px;background:var(--grad);
+      color:#fff;font-size:14.5px;font-weight:800;cursor:pointer;box-shadow:0 10px 24px rgba(16,185,129,.3);transition:.15s}
+    .btn-primary:active{transform:scale(.98)}
+    .err-box{display:none;margin-top:12px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.4);
+      color:#fca5a5;padding:10px 12px;border-radius:12px;font-size:12px;font-weight:700}
+    .err-box.show{display:block}
+
+    .demo-box{margin-top:18px;border-top:1px solid var(--border);padding-top:14px}
+    .demo-title{font-size:11.5px;font-weight:700;color:var(--sub);margin-bottom:8px}
+    .demo-list{display:grid;grid-template-columns:1fr 1fr;gap:7px;max-height:160px;overflow:auto}
+    .demo-acc{border:1px solid var(--border);background:rgba(255,255,255,.04);border-radius:11px;padding:8px;
+      text-align:left;cursor:pointer;transition:.15s}
+    .demo-acc:hover{border-color:var(--accent);background:rgba(16,185,129,.1)}
+    .demo-acc strong{display:block;font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .demo-acc span{font-size:10px;color:var(--sub);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+    /* ===== DASHBOARD ===== */
+    .dash-shell{max-width:960px;margin:0 auto;padding:16px 14px 90px}
+    .dash-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      background:var(--card);border:1px solid var(--border);border-radius:22px;padding:14px 16px;margin-bottom:16px}
+    .store-id-wrap{display:flex;align-items:center;gap:12px}
+    .store-avatar{width:48px;height:48px;border-radius:15px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:26px}
+    .store-name{font-size:18px;font-weight:800}
+    .store-email{font-size:11.5px;color:var(--sub)}
+    .top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .status-toggle{border:none;border-radius:999px;padding:8px 14px;font-size:12px;font-weight:800;cursor:pointer;
+      display:inline-flex;align-items:center;gap:6px}
+    .status-toggle.open{background:rgba(16,185,129,.18);color:#34d399;border:1px solid rgba(16,185,129,.4)}
+    .status-toggle.closed{background:rgba(239,68,68,.18);color:#f87171;border:1px solid rgba(239,68,68,.4)}
+    .logout-btn{border:1px solid var(--border);background:var(--soft);border-radius:12px;padding:8px 13px;
+      font-size:12px;font-weight:700;cursor:pointer}
+
+    /* STATS */
+    .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+    .stat-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px}
+    .stat-lbl{font-size:11.5px;color:var(--sub);font-weight:600}
+    .stat-val{font-size:22px;font-weight:800;margin-top:4px;letter-spacing:-.5px}
+    .stat-val.green{color:#34d399}
+    .stat-val.orange{color:#fb923c}
+
+    /* TABS */
+    .tabs{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto}
+    .tab-btn{border:1px solid var(--border);background:var(--card);border-radius:13px;padding:10px 16px;
+      font-size:13px;font-weight:800;color:var(--sub);cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:7px}
+    .tab-btn.active{background:var(--grad);border-color:transparent;color:#fff}
+    .pill-cnt{background:rgba(0,0,0,.25);padding:2px 7px;border-radius:999px;font-size:11px}
+
+    /* ORDERS */
+    .filter-row{display:flex;gap:7px;margin-bottom:12px;overflow-x:auto}
+    .f-chip{border:1px solid var(--border);background:var(--surface);border-radius:999px;padding:6px 12px;
+      font-size:12px;font-weight:700;color:var(--sub);cursor:pointer;white-space:nowrap}
+    .f-chip.active{background:#fff;color:#0b1120;border-color:#fff}
+
+    .orders-list{display:grid;grid-template-columns:1fr;gap:12px}
+    .order-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:15px;display:flex;flex-direction:column;gap:10px}
+    .order-card.is-new{border-color:rgba(16,185,129,.55);box-shadow:0 0 0 1px rgba(16,185,129,.25)}
+    .oc-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .oc-code{font-size:15px;font-weight:800}
+    .oc-badge{font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px}
+    .st-new{background:rgba(59,130,246,.2);color:#93c5fd}
+    .st-accepted{background:rgba(245,158,11,.2);color:#fcd34d}
+    .st-preparing{background:rgba(249,115,22,.2);color:#fdba74}
+    .st-onway{background:rgba(139,92,246,.2);color:#c4b5fd}
+    .st-delivered{background:rgba(16,185,129,.2);color:#6ee7b7}
+    .st-cancelled{background:rgba(239,68,68,.2);color:#fca5a5}
+
+    .oc-cust{background:rgba(11,17,32,.45);border-radius:13px;padding:10px 12px;font-size:12.5px;display:flex;flex-direction:column;gap:4px}
+    .oc-items{display:flex;flex-direction:column;gap:5px;padding:4px 0}
+    .oc-item-row{display:flex;justify-content:space-between;font-size:13px}
+    .oc-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+    .act-btn{flex:1;min-width:110px;height:40px;border:none;border-radius:12px;font-size:12.5px;font-weight:800;cursor:pointer}
+    .act-btn.next{background:var(--grad);color:#fff}
+    .act-btn.cancel{background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);flex:0 0 auto;padding:0 14px}
+    .act-btn.call{background:var(--soft);color:#fff;text-decoration:none;display:flex;align-items:center;justify-content:center;flex:0 0 auto;padding:0 14px}
+
+    /* PRODUCTS MANAGEMENT */
+    .prod-manage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+    .pm-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:13px;display:flex;align-items:center;gap:12px}
+    .pm-emoji{width:46px;height:46px;border-radius:13px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+    .pm-info{flex:1;min-width:0}
+    .pm-title{font-size:13.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .pm-sub{font-size:11.5px;color:var(--sub);margin-top:2px}
+    .stock-btn{border:none;border-radius:10px;padding:7px 10px;font-size:11px;font-weight:800;cursor:pointer}
+    .stock-btn.in{background:rgba(16,185,129,.18);color:#34d399}
+    .stock-btn.out{background:rgba(239,68,68,.18);color:#f87171}
+
+    .add-prod-box{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:16px;margin-bottom:14px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .empty{background:var(--card);border:1px dashed var(--border);border-radius:20px;padding:38px 20px;text-align:center;color:var(--sub)}
+    .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(10px);background:#10b981;color:#fff;
+      padding:11px 18px;border-radius:999px;font-size:13px;font-weight:800;opacity:0;pointer-events:none;transition:.2s;z-index:99}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    @media(max-width:560px){.stats-grid{grid-template-columns:1fr 1fr}.stats-grid .stat-card:last-child{grid-column:span 2}.form-row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      // ============================================================
+      // 0. SAZLAMALAR (index.html bilen birmeňzeş Supabase açarlary)
+      // ============================================================
+      const CONFIG = {
+        SUPABASE_URL: '',
+        SUPABASE_ANON_KEY: '',
+        currency: 'm.'
+      };
+
+      const sb = (CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY && window.supabase)
+        ? window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY)
+        : null;
+
+      // ============================================================
+      // 1. HER DÜKANYŇ ÖZ E-POÇTASY WE PAROLY (Isolirlenen giriş)
+      // Her dükan eýesi diňe öz storeId-sine degişli sargytlary görýär!
+      // ============================================================
+      const STORE_ACCOUNTS = [
+        { email:'altyn@sahermarket.tm',   pass:'123456', storeId:'altyn_sac',  name:'Altyn Saçak' },
+        { email:'pizza@sahermarket.tm',   pass:'123456', storeId:'dost_pizza', name:'Dost Pizza & Burger' },
+        { email:'tamdyr@sahermarket.tm',  pass:'123456', storeId:'tamdyr',     name:'Tamdyr Çörek & Süýji' },
+        { email:'bereket@sahermarket.tm', pass:'123456', storeId:'bereket',    name:'Bereket Market' },
+        { email:'bazar@sahermarket.tm',   pass:'123456', storeId:'bazar_ter',  name:'Ter Bag & Et' },
+        { email:'cesme@sahermarket.tm',   pass:'123456', storeId:'cesme',      name:'Çeşme Suw' },
+        { email:'tehno@sahermarket.tm',   pass:'123456', storeId:'tehno',      name:'Tehno Burç' },
+        { email:'ayjamal@sahermarket.tm', pass:'123456', storeId:'ayjamal',    name:'Aýjamal Kosmetika' },
+        { email:'ussat@sahermarket.tm',   pass:'123456', storeId:'ussat',      name:'Ussat Hojalyk' },
+        { email:'bahar@sahermarket.tm',   pass:'123456', storeId:'bahar_gul',  name:'Bahar Gülleri' },
+        { email:'yyldyz@sahermarket.tm',  pass:'123456', storeId:'yyldyz',     name:'Ýyldyz Kanselýariýa' },
+        { email:'dost@sahermarket.tm',    pass:'123456', storeId:'dost',       name:'Dost Zoo' }
+      ];
+
+      const DB_STORES_KEY   = 'sm_db_stores_v1';
+      const DB_PRODUCTS_KEY = 'sm_db_products_v1';
+      const DB_ORDERS_KEY   = 'sm_db_orders_v1';
+      const SESSION_KEY     = 'sm_partner_session_v1';
+
+      function loadJSON(k, f) { try { const r = localStorage.getItem(k); return r ? JSON.parse(r) : f; } catch { return f; } }
+      function saveJSON(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+      function esc(s) { return String(s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+      function fmt(v) { return Number(v || 0).toLocaleString('tr-TR') + ' ' + CONFIG.currency; }
+
+      let toastTimer;
+      function toast(msg) {
+        const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
+        clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+      }
+
+      const STATUS_FLOW = {
+        new:       { label:'Täze sargyt',  cls:'st-new',       next:'accepted',  nextLabel:'✓ Kabul et' },
+        accepted:  { label:'Kabul edildi', cls:'st-accepted',  next:'preparing', nextLabel:'🔥 Taýýarlap başla' },
+        preparing: { label:'Taýýarlanýar', cls:'st-preparing', next:'onway',     nextLabel:'🛵 Kurýere ber (Ýolda)' },
+        onway:     { label:'Kurýer ýolda', cls:'st-onway',     next:'delivered', nextLabel:'✅ Eltildi diýip belle' },
+        delivered: { label:'Eltildi ✓',    cls:'st-delivered', next:null },
+        cancelled: { label:'Ýatyryldy',    cls:'st-cancelled', next:null }
+      };
+
+      const state = {
+        session: loadJSON(SESSION_KEY, null), // { email, storeId }
+        tab: 'orders', // 'orders' | 'products' | 'settings'
+        orderFilter: 'active', // 'active' | 'done' | 'all'
+        stores: loadJSON(DB_STORES_KEY, []),
+        products: loadJSON(DB_PRODUCTS_KEY, []),
+        orders: loadJSON(DB_ORDERS_KEY, [])
+      };
+
+      function refreshLocal() {
+        state.stores = loadJSON(DB_STORES_KEY, []);
+        state.products = loadJSON(DB_PRODUCTS_KEY, []);
+        state.orders = loadJSON(DB_ORDERS_KEY, []);
+      }
+
+      // Live notification when index.html places a new order for THIS store ONLY!
+      window.addEventListener('storage', e => {
+        if (e.key === DB_ORDERS_KEY || e.key === DB_STORES_KEY || e.key === DB_PRODUCTS_KEY) {
+          const prevMyCount = state.session
+            ? state.orders.filter(o => o.storeId === state.session.storeId).length
+            : 0;
+          refreshLocal();
+          if (state.session) {
+            const newMyCount = state.orders.filter(o => o.storeId === state.session.storeId).length;
+            if (e.key === DB_ORDERS_KEY && newMyCount > prevMyCount) {
+              toast('🔔 Täze sargyt geldi!');
+            }
+          }
+          render();
+        }
+      });
+
+      function currentStore() {
+        if (!state.session) return null;
+        return state.stores.find(s => s.id === state.session.storeId) ||
+          { id: state.session.storeId, name: state.session.name || state.session.storeId, emoji:'🏪', isOpen:true, eta:'30–45 min', hours:'09:00–22:00', phone:'' };
+      }
+
+      // STRICT ISOLATION: Only orders belonging to logged-in storeId
+      function myOrders() {
+        if (!state.session) return [];
+        return state.orders.filter(o => o.storeId === state.session.storeId);
+      }
+      function myProducts() {
+        if (!state.session) return [];
+        return state.products.filter(p => p.storeId === state.session.storeId);
+      }
+
+      async function handleLogin(email, pass) {
+        const cleanEmail = email.trim().toLowerCase();
+        // Supabase Auth mode
+        if (sb) {
+          const { data, error } = await sb.auth.signInWithPassword({ email: cleanEmail, password: pass });
+          if (error) return 'E-poçta ýa-da parol nädogry.';
+          const { data: st } = await sb.from('stores').select('*').eq('owner_email', cleanEmail).single();
+          if (!st) return 'Bu hasaba bagly dükan tapylmady.';
+          state.session = { email: cleanEmail, storeId: st.id, name: st.name };
+          saveJSON(SESSION_KEY, state.session);
+          await syncSupabaseStore();
+          render();
+          return null;
+        }
+        // Local Multi-Tenant Auth mode
+        const acc = STORE_ACCOUNTS.find(a => a.email === cleanEmail && a.pass === pass);
+        if (!acc) return 'E-poçta ýa-da parol nädogry. (Parol: 123456)';
+        state.session = { email: acc.email, storeId: acc.storeId, name: acc.name };
+        saveJSON(SESSION_KEY, state.session);
+        refreshLocal();
+        render();
+        return null;
+      }
+
+      async function syncSupabaseStore() {
+        if (!sb || !state.session) return;
+        const sid = state.session.storeId;
+        const [oRes, pRes, sRes] = await Promise.all([
+          sb.from('orders').select('*').eq('store_id', sid).order('created_at', { ascending:false }),
+          sb.from('products').select('*').eq('store_id', sid),
+          sb.from('stores').select('*').eq('id', sid)
+        ]);
+        if (oRes.data) state.orders = oRes.data.map(r => ({
+          code:r.code, storeId:r.store_id, storeName:r.store_name, status:r.status,
+          createdAt:new Date(r.created_at).getTime(), customerName:r.customer_name,
+          customerPhone:r.customer_phone, address:r.address, note:r.note, pay:r.pay_method,
+          items:r.items, total:r.total, count:r.count
+        }));
+        if (pRes.data) state.products = pRes.data;
+        if (sRes.data) state.stores = sRes.data;
+        render();
+      }
+
+      async function updateOrderStatus(code, newStatus) {
+        const idx = state.orders.findIndex(o => o.code === code && o.storeId === state.session.storeId);
+        if (idx === -1) return;
+        state.orders[idx].status = newStatus;
+        saveJSON(DB_ORDERS_KEY, state.orders);
+        if (sb) await sb.from('orders').update({ status: newStatus }).eq('code', code).eq('store_id', state.session.storeId);
+        toast('Sargyt ýagdaýy täzelendi ✓');
+        render();
+      }
+
+      async function toggleStoreOpen() {
+        const idx = state.stores.findIndex(s => s.id === state.session.storeId);
+        if (idx === -1) return;
+        state.stores[idx].isOpen = state.stores[idx].isOpen === false ? true : false;
+        saveJSON(DB_STORES_KEY, state.stores);
+        if (sb) await sb.from('stores').update({ is_open: state.stores[idx].isOpen }).eq('id', state.session.storeId);
+        toast(state.stores[idx].isOpen ? 'Dükan açyldy 🟢' : 'Dükan ýapyldy 🔴');
+        render();
+      }
+
+      async function toggleProductStock(pid) {
+        const idx = state.products.findIndex(p => p.id === pid && p.storeId === state.session.storeId);
+        if (idx === -1) return;
+        state.products[idx].inStock = state.products[idx].inStock === false ? true : false;
+        saveJSON(DB_PRODUCTS_KEY, state.products);
+        if (sb) await sb.from('products').update({ in_stock: state.products[idx].inStock }).eq('id', pid).eq('store_id', state.session.storeId);
+        render();
+      }
+
+      async function addProduct(title, price, unit, cat, emoji) {
+        const p = {
+          id: 'p_' + Date.now(),
+          storeId: state.session.storeId,
+          title, price: Number(price), unit: unit || '1 sany',
+          cat: cat || 'Esasy', emoji: emoji || '📦',
+          inStock: true, desc: ''
+        };
+        state.products.unshift(p);
+        saveJSON(DB_PRODUCTS_KEY, state.products);
+        if (sb) await sb.from('products').insert([{ id:p.id, store_id:p.storeId, title:p.title, price:p.price, unit:p.unit, cat:p.cat, emoji:p.emoji, in_stock:true }]);
+        toast('Täze haryt goşuldy ✓');
+        render();
+      }
+
+      // ============================================================
+      // 2. RENDER
+      // ============================================================
+      function renderLogin() {
+        const demos = STORE_ACCOUNTS.map(a =>
+          '<button type="button" class="demo-acc" data-fill-email="' + a.email + '" data-fill-pass="' + a.pass + '">' +
+            '<strong>' + esc(a.name) + '</strong><span>' + a.email + '</span>' +
+          '</button>'
+        ).join('');
+
+        return '<div class="login-wrap">' +
+          '<div class="login-card">' +
+            '<div class="logo-badge">Ş</div>' +
+            '<h1>Dükan Paneli</h1>' +
+            '<p>Öz dükanyňyzyň sargytlaryny we harytlaryny dolandyrmak üçin e-poçta we parol bilen giriň.</p>' +
+            '<form id="loginForm">' +
+              '<div class="field"><label>E-poçta (Email)</label><input type="email" id="lEmail" required placeholder="altyn@sahermarket.tm" /></div>' +
+              '<div class="field"><label>Parol</label><input type="password" id="lPass" required placeholder="••••••" /></div>' +
+              '<div class="err-box" id="loginErr"></div>' +
+              '<button type="submit" class="btn-primary">Giriş et →</button>' +
+            '</form>' +
+            '<div class="demo-box">' +
+              '<div class="demo-title">Synag üçin dükan hasaplary (parol: 123456):</div>' +
+              '<div class="demo-list">' + demos + '</div>' +
+            '</div>' +
+            '<div style="text-align:center;margin-top:16px;font-size:12px;"><a href="index.html" style="color:#34d399;text-decoration:none;font-weight:700;">← Müşderi saýtyna geç</a></div>' +
+          '</div>' +
+        '</div>';
+      }
+
+      function renderDashboard() {
+        const store = currentStore();
+        const orders = myOrders();
+        const products = myProducts();
+        const newCount = orders.filter(o => o.status === 'new').length;
+        const activeOrders = orders.filter(o => !['delivered','cancelled'].includes(o.status));
+        const revenue = orders.filter(o => o.status !== 'cancelled').reduce((a, o) => a + Number(o.total || 0), 0);
+
+        let content = '';
+        if (state.tab === 'orders') {
+          let list = orders;
+          if (state.orderFilter === 'active') list = activeOrders;
+          else if (state.orderFilter === 'done') list = orders.filter(o => ['delivered','cancelled'].includes(o.status));
+
+          content = '<div class="filter-row">' +
+              '<button type="button" class="f-chip' + (state.orderFilter === 'active' ? ' active' : '') + '" data-of="active">Işjeň (' + activeOrders.length + ')</button>' +
+              '<button type="button" class="f-chip' + (state.orderFilter === 'done' ? ' active' : '') + '" data-of="done">Tamamlanan</button>' +
+              '<button type="button" class="f-chip' + (state.orderFilter === 'all' ? ' active' : '') + '" data-of="all">Ählisi (' + orders.length + ')</button>' +
+            '</div>' +
+            (list.length ? '<div class="orders-list">' + list.map(o => {
+              const sm = STATUS_FLOW[o.status || 'new'] || STATUS_FLOW.new;
+              const dt = new Date(o.createdAt).toLocaleString('tr-TR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' });
+              return '<div class="order-card' + (o.status === 'new' ? ' is-new' : '') + '">' +
+                '<div class="oc-top">' +
+                  '<div><div class="oc-code">' + esc(o.code) + ' • ' + fmt(o.total) + '</div><div style="font-size:11.5px;color:var(--sub);">' + dt + ' • ' + (o.pay === 'card' ? '💳 Kart' : '💵 Nagt') + '</div></div>' +
+                  '<span class="oc-badge ' + sm.cls + '">' + sm.label + '</span>' +
+                '</div>' +
+                '<div class="oc-cust">' +
+                  '<div>👤 <strong>' + esc(o.customerName) + '</strong> • 📞 ' + esc(o.customerPhone) + '</div>' +
+                  '<div>📍 ' + esc(o.address) + '</div>' +
+                  (o.note ? '<div style="color:#fcd34d;">📝 Bellik: ' + esc(o.note) + '</div>' : '') +
+                '</div>' +
+                '<div class="oc-items">' +
+                  o.items.map(it => '<div class="oc-item-row"><span><strong>' + it.qty + '×</strong> ' + esc(it.title) + ' (' + esc(it.unit) + ')</span><strong>' + fmt(it.price * it.qty) + '</strong></div>').join('') +
+                '</div>' +
+                '<div class="oc-actions">' +
+                  (sm.next ? '<button type="button" class="act-btn next" data-next-code="' + esc(o.code) + '" data-next-st="' + sm.next + '">' + sm.nextLabel + '</button>' : '') +
+                  '<a class="act-btn call" href="tel:' + esc(String(o.customerPhone).replace(/\s/g,'')) + '">📞 Jaň</a>' +
+                  (!['delivered','cancelled'].includes(o.status) ? '<button type="button" class="act-btn cancel" data-cancel-code="' + esc(o.code) + '">Ýatyr</button>' : '') +
+                '</div>' +
+              '</div>';
+            }).join('') + '</div>'
+            : '<div class="empty"><div style="font-size:36px;margin-bottom:8px;">📭</div><strong>Bu bölümde entek sargyt ýok</strong><p style="font-size:12px;margin-top:4px;">Müşderi <strong>' + esc(store.name) + '</strong> üçin sargyt edende şu ýerde derrew görner.</p></div>');
+        } else if (state.tab === 'products') {
+          content = '<form id="addProdForm" class="add-prod-box">' +
+              '<h3 style="font-size:15px;font-weight:800;margin-bottom:8px;">➕ Täze haryt / tagam goş</h3>' +
+              '<div class="form-row">' +
+                '<div class="field" style="margin-top:0;"><label>Ady *</label><input id="pTitle" required placeholder="Mysal: Täze somsa" /></div>' +
+                '<div class="field" style="margin-top:0;"><label>Bahasy (m.) *</label><input id="pPrice" type="number" min="1" required placeholder="15" /></div>' +
+              '</div>' +
+              '<div class="form-row" style="margin-top:10px;">' +
+                '<div class="field" style="margin-top:0;"><label>Ölçegi</label><input id="pUnit" placeholder="1 sany / 500 g" /></div>' +
+                '<div class="field" style="margin-top:0;"><label>Emoji</label><input id="pEmoji" placeholder="🥟" value="📦" /></div>' +
+              '</div>' +
+              '<button type="submit" class="btn-primary" style="height:42px;margin-top:12px;">Harydy goş</button>' +
+            '</form>' +
+            '<div class="prod-manage-grid">' + products.map(p =>
+              '<div class="pm-card">' +
+                '<div class="pm-emoji">' + p.emoji + '</div>' +
+                '<div class="pm-info"><div class="pm-title">' + esc(p.title) + '</div><div class="pm-sub">' + esc(p.unit) + ' • <strong style="color:#fff;">' + fmt(p.price) + '</strong></div></div>' +
+                '<button type="button" class="stock-btn ' + (p.inStock !== false ? 'in' : 'out') + '" data-stock="' + p.id + '">' + (p.inStock !== false ? 'Bar ✓' : 'Gutardy') + '</button>' +
+              '</div>'
+            ).join('') + '</div>';
+        }
+
+        return '<div class="dash-shell">' +
+          '<div class="dash-top">' +
+            '<div class="store-id-wrap">' +
+              '<div class="store-avatar">' + (store.emoji || '🏪') + '</div>' +
+              '<div><div class="store-name">' + esc(store.name) + '</div><div class="store-email">' + esc(state.session.email) + ' • Diňe öz sargytlaryňyz</div></div>' +
+            '</div>' +
+            '<div class="top-actions">' +
+              '<button type="button" class="status-toggle ' + (store.isOpen !== false ? 'open' : 'closed') + '" id="toggleOpenBtn">' + (store.isOpen !== false ? '● Dükan Açyk' : '● Dükan Ýapyk') + '</button>' +
+              '<a href="index.html" class="logout-btn" style="text-decoration:none;">🌐 Saýty gör</a>' +
+              '<button type="button" class="logout-btn" id="logoutBtn">Çykyş</button>' +
+            '</div>' +
+          '</div>' +
+
+          '<div class="stats-grid">' +
+            '<div class="stat-card"><div class="stat-lbl">Täze sargytlar</div><div class="stat-val orange">' + newCount + '</div></div>' +
+            '<div class="stat-card"><div class="stat-lbl">Jemi sargyt</div><div class="stat-val">' + orders.length + '</div></div>' +
+            '<div class="stat-card"><div class="stat-lbl">Umumy girdeji</div><div class="stat-val green">' + fmt(revenue) + '</div></div>' +
+          '</div>' +
+
+          '<div class="tabs">' +
+            '<button type="button" class="tab-btn' + (state.tab === 'orders' ? ' active' : '') + '" data-tab="orders">📦 Sargytlar <span class="pill-cnt">' + activeOrders.length + '</span></button>' +
+            '<button type="button" class="tab-btn' + (state.tab === 'products' ? ' active' : '') + '" data-tab="products">🛍️ Harytlar (' + products.length + ')</button>' +
+          '</div>' +
+          content +
+        '</div>';
+      }
+
+      function render() {
+        document.getElementById('root').innerHTML = state.session ? renderDashboard() : renderLogin();
+      }
+
+      document.getElementById('root').addEventListener('submit', async e => {
+        if (e.target.id === 'loginForm') {
+          e.preventDefault();
+          const err = await handleLogin(document.getElementById('lEmail').value, document.getElementById('lPass').value);
+          if (err) { const b = document.getElementById('loginErr'); b.textContent = err; b.classList.add('show'); }
+        } else if (e.target.id === 'addProdForm') {
+          e.preventDefault();
+          addProduct(
+            document.getElementById('pTitle').value.trim(),
+            document.getElementById('pPrice').value,
+            document.getElementById('pUnit').value.trim(),
+            'Täze',
+            document.getElementById('pEmoji').value.trim()
+          );
+        }
+      });
+
+      document.getElementById('root').addEventListener('click', e => {
+        const el = sel => e.target.closest(sel);
+        if (el('[data-fill-email]')) {
+          document.getElementById('lEmail').value = el('[data-fill-email]').getAttribute('data-fill-email');
+          document.getElementById('lPass').value = el('[data-fill-pass]').getAttribute('data-fill-pass');
+          return;
+        }
+        if (el('#logoutBtn')) {
+          state.session = null; localStorage.removeItem(SESSION_KEY);
+          if (sb) sb.auth.signOut();
+          render(); return;
+        }
+        if (el('#toggleOpenBtn')) { toggleStoreOpen(); return; }
+        if (el('[data-tab]')) { state.tab = el('[data-tab]').getAttribute('data-tab'); render(); return; }
+        if (el('[data-of]')) { state.orderFilter = el('[data-of]').getAttribute('data-of'); render(); return; }
+        if (el('[data-next-code]')) {
+          const btn = el('[data-next-code]');
+          updateOrderStatus(btn.getAttribute('data-next-code'), btn.getAttribute('data-next-st'));
+          return;
+        }
+        if (el('[data-cancel-code]')) {
+          if (confirm('Sargydy ýatyrmak isleýärsiňizmi?')) updateOrderStatus(el('[data-cancel-code]').getAttribute('data-cancel-code'), 'cancelled');
+          return;
+        }
+        if (el('[data-stock]')) { toggleProductStock(el('[data-stock]').getAttribute('data-stock')); return; }
+      });
+
+      render();
+      if (state.session) syncSupabaseStore();
+    })();
+  </script>
+</body>
+</html>
